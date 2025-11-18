@@ -2,6 +2,7 @@
 
 int main()
 {
-    printf("Project");
+    printf("Flashcard Project");
+
     return 0;
 }
