@@ -2,8 +2,7 @@
 
 int main()
 {
-    printf("testing");
+    printf("Flashcard Project");
 
-    printf("Hello world");
     return 0;
 }
