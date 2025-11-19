@@ -9,6 +9,48 @@ struct Flashcard
     char definition[100];
 
 };
+void clearBuffer()
+{
+    int c;
+    while((c = getchar()) != '\n' && c != EOF);
+}
+
+void trimNewline(char *str)
+{
+    str[strcspn(str,"\n")] = 0;
+}
+
+char GetLine(int line,char *name ,char *buffer)
+{
+    int current_line = 1;
+    char str[100];
+    char file_name[100];
+
+    sprintf(file_name,"%s.txt",name);
+
+    FILE *fp = fopen(file_name,"r");
+    if(fp == NULL)
+    {
+        printf("<<Error open file>>");
+        return 0;
+    }
+
+    while(fgets(str,sizeof(str),fp) != NULL)
+    {
+        if(current_line == line)
+        {
+            trimNewline(str);
+            strcpy(buffer,str);
+
+            fclose(fp);
+            return 1;
+        }
+        current_line++;
+    }
+    fclose(fp);
+    return 0;
+}
+
 
 //create new set file (title.txt) and add title to set_list
 void AddSet()
@@ -55,9 +97,11 @@ int AddCard(char *title)
     if(fp == NULL)
     {
         printf("<<Error open file>>");
-        return 101;
+        return 1;
     }
+
     system("cls");
+
     while(1)
     {
         printf("Enter word (or enter 0 to go back): ");
@@ -81,15 +125,17 @@ int AddCard(char *title)
 //print all cards in the set
 int CardInSet(char *title)
 {
+    int line;
     char file_name[50];
     char str[200];
+
     sprintf(file_name,"%s.txt",title);
 
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
         printf("<<Error open file>>");
-        return 101;
+        return 0;
     }
 
     while(fgets(str,100,fp)!= NULL)
@@ -108,7 +154,7 @@ int SetList()
     if(fp == NULL)
     {
         printf("<<Error open file>>");
-        return 101;
+        return 0;
     }
     while(fgets(str,100,fp)!= NULL)
     {
@@ -120,6 +166,16 @@ int SetList()
 void manage_card_menu(char *title)
 {
     char choice;
+    char file_name[100];
+
+    sprintf(file_name,"%s.txt",title);
+
+    FILE *fp = fopen(file_name,"r");
+    if(fp == NULL)
+    {
+        printf("<<Error open file>>");
+        return;
+    }
 
     do
     {
@@ -143,7 +199,6 @@ void manage_card_menu(char *title)
             case 'a':
                 AddCard(title);
                 system("cls");
-                manage_card_menu(title);
                 break;
             case 'd': printf("Delete set"); break;
             case 'x': return;
@@ -153,9 +208,11 @@ void manage_card_menu(char *title)
         }
     }while (choice != 'x');
 }
-void manage_set_menu()
+void set_menu()
 {
     char choice;
+    char setName[100];
+    int lineNum;
     do
     {
         system("cls");
@@ -178,10 +235,15 @@ void manage_set_menu()
             case 'a':
                 AddSet();
                 system("cls");
-                manage_set_menu();
                 break;
             case 'd': printf("Delete set"); break;
-            case 'm': manage_card_menu("Vocab"); break;
+            case 'm':
+                printf("Enter line number: ");
+                scanf("%d",&lineNum);
+                GetLine(lineNum,"set_list",setName);
+                clearBuffer();
+                manage_card_menu(setName);
+                break;
             case 'x': return;
             default:
                 printf("no choice\n");
@@ -205,7 +267,7 @@ void main_menu()
         switch(choice)
         {
             case '1': printf("Starting game...\n"); break;
-            case '2': manage_set_menu(); break;
+            case '2': set_menu(); break;
             case 'x': return;
             default:
                 printf("no choice\n");
@@ -223,6 +285,7 @@ int main()
     main_menu();
     //AddCard(title);
     //CardInSet(title);
+
 
     return 0;
 }
