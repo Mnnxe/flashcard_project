@@ -7,8 +7,9 @@ struct Flashcard
 {
     char word[100];
     char definition[100];
-
 };
+
+//helper function
 void clearBuffer()
 {
     int c;
@@ -31,7 +32,7 @@ char GetLine(int line,char *name ,char *buffer)
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return 0;
     }
 
@@ -51,8 +52,7 @@ char GetLine(int line,char *name ,char *buffer)
     return 0;
 }
 
-
-//create new set file (title.txt) and add title to set_list
+//file management function
 void AddSet()
 {
     char file_name[50];
@@ -72,7 +72,7 @@ void AddSet()
         FILE *master = fopen("set_list.txt","a");
         if(fp == NULL||master == NULL)
         {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return;
         }
 
@@ -84,7 +84,41 @@ void AddSet()
 
 }
 
-//add card to set
+void DelSet(char *title)
+{
+    char str[100];
+    char file_name[100];
+
+    sprintf(file_name,"%s.txt",title);
+
+    FILE *fp = fopen("set_list.txt","r");
+    FILE *tp = fopen("temp_file.txt","w");
+    if(fp == NULL || tp == NULL)
+    {
+        printf("<File is empty>");
+    }
+
+    while(fgets(str,sizeof(str),fp) != NULL )
+    {
+        trimNewline(str);
+
+        if(strcmp(str,title) != 0)
+        {
+            fprintf(tp,"%s\n",str);
+        }
+    }
+
+    fclose(fp);
+    fclose(tp);
+
+    remove("set_list.txt");
+    remove(file_name);
+    rename("temp_card.txt","set_list.txt");
+
+
+
+}
+
 int AddCard(char *title)
 {
     char w[100];
@@ -96,7 +130,7 @@ int AddCard(char *title)
     FILE *fp = fopen(file_name,"a");
     if(fp == NULL)
     {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return 1;
     }
 
@@ -122,30 +156,59 @@ int AddCard(char *title)
     fclose(fp);
 }
 
-//print all cards in the set
-int CardInSet(char *title)
+void DelCard(char *word,char *file)
+{
+    char str[100];
+
+    FILE *fp = fopen(file,"r");
+    FILE *tp = fopen("temp_file.txt","w");
+    if(fp == NULL || tp == NULL)
+    {
+        printf("<File is empty>");
+    }
+
+    while(fgets(str,sizeof(str),fp) != NULL )
+    {
+        trimNewline(str);
+
+        if(strcmp(str,word) != 0)
+        {
+            fprintf(tp,"%s\n",str);
+        }
+    }
+
+    fclose(fp);
+    fclose(tp);
+
+    remove(file);
+    rename("temp_file.txt",file);
+
+}
+
+int CardList(char *title)
 {
     int line;
     char file_name[50];
     char str[200];
+    int count = 1;
 
     sprintf(file_name,"%s.txt",title);
 
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return 0;
     }
 
-    while(fgets(str,100,fp)!= NULL)
+    while(fgets(str,sizeof(str),fp)!= NULL)
     {
-        printf("%s",str);
+        printf("%d. %s",count,str);
+        count++;
     }
     fclose(fp);
 }
 
-//print all list
 int SetList()
 {
     char str[200];
@@ -153,7 +216,7 @@ int SetList()
     FILE *fp = fopen("set_list.txt","r");
     if(fp == NULL)
     {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return 0;
     }
     while(fgets(str,100,fp)!= NULL)
@@ -163,25 +226,27 @@ int SetList()
     }
     fclose(fp);
 }
-void manage_card_menu(char *title)
+void card_menu(char *title)
 {
     char choice;
     char file_name[100];
+    char card[100];
+    int lineNum;
 
     sprintf(file_name,"%s.txt",title);
 
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
-        printf("<<Error open file>>");
+        printf("<File is empty>");
         return;
     }
-
+    fclose(fp);
     do
     {
         system("cls");
         printf("----------%s----------\n",title);
-        CardInSet(title);
+        CardList(title);
         printf("\n");
         printf("A: Add card\n");
         printf("D: Delete card\n");
@@ -200,7 +265,13 @@ void manage_card_menu(char *title)
                 AddCard(title);
                 system("cls");
                 break;
-            case 'd': printf("Delete set"); break;
+            case 'd':
+                printf("Enter line number to delete: ");
+                scanf("%d",&lineNum);
+                GetLine(lineNum,title,card);
+                clearBuffer();
+                DelCard(card,file_name);
+                break;
             case 'x': return;
             default:
 
@@ -236,13 +307,19 @@ void set_menu()
                 AddSet();
                 system("cls");
                 break;
-            case 'd': printf("Delete set"); break;
+            case 'd':
+                printf("Enter line number: ");
+                scanf("%d",&lineNum);
+                GetLine(lineNum,"set_list",setName);
+                clearBuffer();
+                DelSet(setName);
+                break;
             case 'm':
                 printf("Enter line number: ");
                 scanf("%d",&lineNum);
                 GetLine(lineNum,"set_list",setName);
                 clearBuffer();
-                manage_card_menu(setName);
+                card_menu(setName);
                 break;
             case 'x': return;
             default:
@@ -279,13 +356,8 @@ void main_menu()
 
 int main()
 {
-    //char title[] = "Alphabet";
-    //AddSet();
-    //SetList();
-    main_menu();
-    //AddCard(title);
-    //CardInSet(title);
 
+    main_menu();
 
     return 0;
 }
