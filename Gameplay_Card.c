@@ -593,7 +593,8 @@ void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct F
     int usedIdx[4];
     usedIdx[0] = currentIdx;
 
-    for (int i = 1; i < 4; i++) {
+    for (int i = 1; i < 4; i++)
+    {
         int randIdx;
         int isDuplicate;
 
@@ -629,8 +630,10 @@ void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct F
     {
         tempOptions[i] = options[indices[i]];
 
-        if (indices[i] == 0) {
+        if (indices[i] == 0)
+        {
             *correctOptionIdx = i;
+        }
     }
 
 
@@ -638,6 +641,7 @@ void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct F
     {
         options[i] = tempOptions[i];
     }
+
 }
 
 
@@ -650,8 +654,10 @@ void PlayRPG(struct Flashcard *deck, int count)
         return;
     }
 
-    int playerHP = count/3;
-    int maxHP = playerHP;
+    int playerHP = 3;
+    int bossHP = count;
+    int maxHP = 4;
+    int MaxbossHP = count;
     int score = 0;
 
     struct Flashcard options[4];
@@ -671,8 +677,15 @@ void PlayRPG(struct Flashcard *deck, int count)
         printf(" HP: ");
         for(int h=0; h<maxHP; h++) {
             if(h < playerHP) printf("O");
-            else printf("XX ");
+            //else printf("XX ");
         }
+        printf("%20s"," HP : ");
+        for(int h=0; h<MaxbossHP; h++)
+        {
+            if(h < bossHP) printf("O");
+            //else printf("XX ");
+        }
+
         printf("\n========================================\n\n");
 
         printf("       /\\_/\\ \n");
@@ -686,40 +699,46 @@ void PlayRPG(struct Flashcard *deck, int count)
         printf(" [3] %s\n", options[2].definition);
         printf(" [4] %s\n", options[3].definition);
 
-        printf("\n Select answer (1-4): ");
+        int selected;
 
-        char key = _getch();
-        int selected = -1;
+        while(1)
+        {
+           printf("\n Select answer (1-4): ");
 
-        if(key >= '1' && key <= '4')
-        {
-            selected = key - '1';
-        else
-        {
-            printf("no choice");
+            char key = _getch();
+            selected = -1;
+
+            if(key >= '1' && key <= '4')
+            {
+                selected = key - '1';
+                break;
+            }
+            else
+            {
+                printf("not in choice");
+            }
         }
 
-
-
-        if (selected == correctIdx) {
-            // ถูก
+        if (selected == correctIdx)
+        {
             printf("\n\n >>> Correct! Critical Hit! <<<\n");
             score++;
-            // (Optional) ฮีลเลือดถ้าตอบถูก
-            // if(playerHP < maxHP) playerHP++;
-        } else {
-            // ผิด
+            if(playerHP < maxHP) playerHP++;
+            bossHP--;
+        }
+        else
+        {
             printf("\n\n >>> WRONG! You took damage! <<<\n");
             printf(" Correct answer was: [%d] %s\n", correctIdx+1, deck[i].definition);
             playerHP--;
         }
 
-        Sleep(1500); // หยุดให้ดูผลลัพธ์แป๊บนึง
+        Sleep(1500);
     }
 
-    // สรุปผล
     system("cls");
     printf("========================================\n");
+
     if (playerHP > 0) {
         printf("       VICTORY! \n");
         printf(" You cleared the dungeon!\n");
@@ -756,7 +775,7 @@ void StartGame(char *setName)
 
 int main()
 {
-    StartGame("vocab");
+    StartGame("Vocab");
     return 0;
 }
 
