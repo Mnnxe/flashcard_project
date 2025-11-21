@@ -59,12 +59,12 @@ int AddSet(char *buffer)
     while (1)
     {
         system("cls");
-        printf("Enter title (max %d chars, or 0 to go back): ", (int)sizeof(title)-1);
+        printf("Enter title (max %d chars, or 0 to go back): ",(int)sizeof(title)-1);
 
-        fgets(title, sizeof(title), stdin);
+        fgets(title,sizeof(title),stdin);
         trimNewline(title);
 
-        if (strcmp(title, "0") == 0)
+        if (strcmp(title,"0") == 0)
             return 0;
 
         if (strlen(title) == 0)
@@ -76,18 +76,18 @@ int AddSet(char *buffer)
 
         if (strlen(title) >= sizeof(title))
         {
-            printf("\n[Error] Title too long! Maximum %d characters.\n",
-                   (int)sizeof(title)-1);
+            printf("\n[Error] Title too long! Maximum %d characters.\n",sizeof(title)-1);
             Sleep(1000);
             continue;
         }
+
         else break;
     }
 
-    sprintf(file_name, "%s.txt", title);
+    sprintf(file_name, "%s.txt",title);
 
-    FILE *fp = fopen(file_name, "w");
-    FILE *master = fopen("set_list.txt", "a");
+    FILE *fp = fopen(file_name,"w");
+    FILE *master = fopen("set_list.txt","a");
 
     if (fp == NULL || master == NULL)
     {
@@ -95,12 +95,12 @@ int AddSet(char *buffer)
         return 0;
     }
 
-    fprintf(master, "%s\n", title);
+    fprintf(master,"%s\n",title);
 
     fclose(fp);
     fclose(master);
 
-    strcpy(buffer, title);
+    strcpy(buffer,title);
     return 1;
 }
 
@@ -136,7 +136,7 @@ void DelSet(char *title)
     remove("set_list.txt");
     rename("temp_file.txt","set_list.txt");
 
-    printf("\nDeleted successfully.\n ");
+    printf("\nDeleted successfully.\n");
     Sleep(1000);
 }
 
@@ -236,7 +236,7 @@ void DelCard(char *word,char *file)
     remove(file);
     rename("temp_file.txt",file);
 
-    printf("\nDeleted successfully.\n ");
+    printf("\nDeleted successfully.\n");
     Sleep(1000);
 }
 
@@ -330,7 +330,7 @@ void card_menu(char *title)
                 while(1)
                 {
                     printf("Enter line number to delete(0 to cancel): ");
-                    if(scanf("%d",&lineNum)!=1)
+                    if(scanf("%d",&lineNum) != 1)
                     {
                         clearBuffer();
                         printf("\n Invalid input! Please try again.\n");
@@ -422,7 +422,7 @@ void set_menu()
                     clearBuffer();
                     if(lineNum == 0)
                     {
-                        printf(">Canceled<");
+                        printf("<Canceled>");
                         Sleep(1000);
                         break;
                     }
@@ -437,7 +437,7 @@ void set_menu()
                         }
                         else
                         {
-                            printf(">Canceled<");
+                            printf("<Canceled>");
                             fflush(stdout);
                             Sleep(1000);
                         }
@@ -538,7 +538,7 @@ struct Flashcard
 int LoadDeck(char *setName, struct Flashcard *deck)
 {
     char file_name[100];
-    char line[250];
+    char str[250];
     int count = 0;
 
     sprintf(file_name, "%s.txt", setName);
@@ -550,12 +550,12 @@ int LoadDeck(char *setName, struct Flashcard *deck)
         return 0;
     }
 
-    while (fgets(line, sizeof(line), fp) != NULL)
+    while (fgets(str, sizeof(str), fp) != NULL)
     {
 
-        trimNewline(line);
+        trimNewline(str);
 
-        char *token_word = strtok(line, ":");
+        char *token_word = strtok(str, ":");
         char *token_def = strtok(NULL, ":");
 
         if (token_word != NULL && token_def != NULL)
@@ -588,20 +588,20 @@ void ShuffleDeck(struct Flashcard *deck, int count)
 
 void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct Flashcard *options, int *correctOptionIdx)
 {
+    int i,j,randIdx,isDuplicate,temp;
+
     options[0] = deck[currentIdx];
 
     int usedIdx[4];
+
     usedIdx[0] = currentIdx;
 
     for (int i = 1; i < 4; i++)
     {
-        int randIdx;
-        int isDuplicate;
-
         do {
             randIdx = rand() % count;
             isDuplicate = 0;
-            for(int j=0; j<i; j++) {
+            for(j=0; j<i; j++) {
                 if (randIdx == usedIdx[j]) {
                     isDuplicate = 1;
                     break;
@@ -615,17 +615,17 @@ void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct F
 
 
     int indices[4] = {0, 1, 2, 3};
-    for (int i = 3; i > 0; i--)
+    for (i = 3; i > 0; i--)
     {
-        int j = rand() % (i + 1);
+        j = rand() % (i + 1);
 
-        int temp = indices[i];
+        temp = indices[i];
         indices[i] = indices[j];
         indices[j] = temp;
     }
 
-
     struct Flashcard tempOptions[4];
+
     for(int i=0; i<4; i++)
     {
         tempOptions[i] = options[indices[i]];
@@ -645,8 +645,27 @@ void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct F
 }
 
 
+void SwapCards(struct Flashcard *a, struct Flashcard *b) {
+    struct Flashcard temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void PlayRPG(struct Flashcard *deck, int count)
 {
+    struct Flashcard options[4];
+    int playerHP = 4;
+    int playerMaxHP = 4;
+    int bossHP = count;
+    int remaining = count;
+    int correctIdx;
+    int currentIdx;
+    int selected;
+    int bars;
+
+    system("cls");
+
     if (count < 4)
     {
         printf("\n [Error] Not enough cards! Need at least 4 cards to play Choice Mode.\n");
@@ -654,82 +673,72 @@ void PlayRPG(struct Flashcard *deck, int count)
         return;
     }
 
-    int playerHP = 3;
-    int bossHP = count;
-    int maxHP = 4;
-    int MaxbossHP = count;
-    int score = 0;
 
-    struct Flashcard options[4];
-    int correctIdx;
-
-    for (int i = 0; i < count; i++)
+    while (remaining > 0 && playerHP > 0)
     {
-        if (playerHP <= 0) break;
+        currentIdx = rand() % remaining;
 
-        GenerateOptions(deck, count, i, options, &correctIdx);
+        GenerateOptions(deck, count, currentIdx, options, &correctIdx);
 
         system("cls");
-        printf("========================================\n");
-        printf(" WAVE %d/%d   |   SCORE: %d\n", i+1, count, score);
-        printf("========================================\n");
+        printf("===========================\n");
+        printf("      REMAINING: %d / %d   \n", remaining, count);
+        printf("===========================\n");
 
-        printf(" HP: ");
-        for(int h=0; h<maxHP; h++) {
-            if(h < playerHP) printf("O");
-            //else printf("XX ");
-        }
-        printf("%20s"," HP : ");
-        for(int h=0; h<MaxbossHP; h++)
+
+
+        printf(" YOU:  ");
+        for(int h=0; h < playerMaxHP; h++)
         {
-            if(h < bossHP) printf("O");
-            //else printf("XX ");
+            if(h < playerHP) printf("O"); // O = หัวใจ
+            else printf("X");             // X = เจ็บ
         }
+        printf("  |  ");
+
+        if (remaining > 10)
+        {
+            bars = 10;
+        }
+
+        else
+        {
+            bars = remaining;
+        }
+        printf(" BOSS: ");
+        for(int h=0; h<bars; h++) printf("#");
 
         printf("\n========================================\n\n");
 
-        printf("       /\\_/\\ \n");
-        printf("      ( O.O )   < \"Answer me!\"\n");
-        printf("       > ^ < \n\n");
-
-        printf(" Question: [ %s ]\n\n", deck[i].word);
+        printf(" Question: [ %s ]\n\n", deck[currentIdx].word);
 
         printf(" [1] %s\n", options[0].definition);
         printf(" [2] %s\n", options[1].definition);
         printf(" [3] %s\n", options[2].definition);
         printf(" [4] %s\n", options[3].definition);
 
-        int selected;
-
         while(1)
         {
-           printf("\n Select answer (1-4): ");
-
+            printf("\n Select answer (1-4): ");
             char key = _getch();
-            selected = -1;
 
             if(key >= '1' && key <= '4')
             {
                 selected = key - '1';
                 break;
             }
-            else
-            {
-                printf("not in choice");
-            }
         }
 
         if (selected == correctIdx)
         {
             printf("\n\n >>> Correct! Critical Hit! <<<\n");
-            score++;
-            if(playerHP < maxHP) playerHP++;
             bossHP--;
+            remaining--;
+            SwapCards(&deck[currentIdx], &deck[remaining]);
         }
         else
         {
             printf("\n\n >>> WRONG! You took damage! <<<\n");
-            printf(" Correct answer was: [%d] %s\n", correctIdx+1, deck[i].definition);
+            printf(" Correct answer was: [%d] %s\n", correctIdx+1, deck[currentIdx].definition);
             playerHP--;
         }
 
@@ -737,17 +746,18 @@ void PlayRPG(struct Flashcard *deck, int count)
     }
 
     system("cls");
-    printf("========================================\n");
-
-    if (playerHP > 0) {
+    printf("=====================================\n");
+    if(playerHP > 0)
+    {
         printf("       VICTORY! \n");
         printf(" You cleared the dungeon!\n");
-    } else {
-        printf("       GAME OVER \n");
-        printf(" Better luck next time...\n");
     }
-    printf(" Final Score: %d / %d\n", score, count);
-    printf("========================================\n");
+    else
+    {
+        printf("       GAME OVER \n");
+        printf(" %d monsters left to defeat...\n", remaining);
+    }
+    printf("=====================================\n");
     printf(" Press any key to return...");
     _getch();
 }
@@ -758,19 +768,25 @@ void StartGame(char *setName)
     int totalCards;
 
     system("cls");
-    printf("Loading deck: %s...\n", setName);
+    printf("Loading deck: %s...\n",setName);
 
-    totalCards = LoadDeck(setName, deck);
+    totalCards = LoadDeck(setName,deck);
 
-    if (totalCards == 0) {
-        printf(" [Error] No cards found!\n");
+    if (totalCards == 0)
+    {
+        printf("[Error] No cards found!\n");
+        Sleep(2000);
+        return;
+    }
+    else if(totalCards < 4)
+    {
+        printf("[Error] Must have at least 4 card in the set!\n");
         Sleep(2000);
         return;
     }
 
-    ShuffleDeck(deck, totalCards);
-
-    PlayRPG(deck, totalCards);
+    ShuffleDeck(deck,totalCards);
+    PlayRPG(deck,totalCards);
 }
 
 int main()
