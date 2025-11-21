@@ -60,11 +60,21 @@ void AddSet()
 
     system("cls");
 
-    printf("Enter title (or enter 0 to go back): ");
-    gets(title);
+ while (1)
+    {
+        printf("Enter title (or enter 0 to go back): ");
+        gets(title);
 
-    if(strcmp(title,"0")==0) return;
-    else
+        if (strcmp(title, "0") == 0)
+            return;
+
+        if (strlen(title) >= sizeof(title))
+        {
+            printf("Error: Title is too long Max %d characters.\n\n", (int)sizeof(title)-1);
+            continue;
+        }
+        break;
+    }
     {
         sprintf(file_name,"%s.txt",title);
 
@@ -102,23 +112,32 @@ int AddCard(char *title)
 
     system("cls");
 
-    while(1)
+ while(1)
     {
-        printf("Enter word (or enter 0 to go back): ");
+        printf("Enter word (or 0 to back): ");
         gets(w);
-        if(strcmp(w,"0")== 0)
+
+        if(strcmp(w, "0") == 0)
             break;
-        else
-        {
-            printf("Enter definition (or enter 0 to go back): ");
-            gets(d);
-            if(strcmp(d,"0")== 0)
-                break;
-            else fprintf(fp,"%s:%s\n",w,d);
+
+        if(strlen(w) >= sizeof(w))
+        {   printf("Error: Word too long! Try again.\n");
+            continue;
         }
+        printf("Enter definition (or 0 to back): ");
+        gets(d);
+        
+        if(strcmp(d, "0") == 0)
+            break;
+        
+        if(strlen(d) >= sizeof(d))
+        {
+            printf("Error: Definition too long! Try again.\n");
+            continue;
+        }
+        fprintf(fp, "%s:%s\n", w, d);
 
     }
-
     fclose(fp);
 }
 
