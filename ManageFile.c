@@ -61,52 +61,43 @@ int AddSet(char *buffer)
     char file_name[50];
     char title[50];
 
-    while (1)
+    while(1)
     {
         system("cls");
-        printf("Enter title (max %d chars, or 0 to go back): ", (int)sizeof(title)-1);
-
-        fgets(title, sizeof(title), stdin);
-        trimNewline(title);
-
-        if (strcmp(title, "0") == 0)
-            return 0;
-
-        if (strlen(title) == 0)
+        printf("Enter title (or enter 0 to go back): ");
+        gets(title);
+        if(strcmp(title,"\0") == 0)
         {
-            printf("\n[Error] Empty input is not allowed!\n");
-            Sleep(1000);
-            continue;
+            printf("\n [Error] Space is not allowed! Please try again.\n\n");
         }
-
-        if (strlen(title) >= sizeof(title))
-        {
-            printf("\n[Error] Title too long! Maximum %d characters.\n",
-                   (int)sizeof(title)-1);
-            Sleep(1000);
-            continue;
-        }
-        else break;
+        else
+            break;
     }
 
-    sprintf(file_name, "%s.txt", title);
-
-    FILE *fp = fopen(file_name, "w");
-    FILE *master = fopen("set_list.txt", "a");
-
-    if (fp == NULL || master == NULL)
-    {
-        printf("<Error opening file>");
+    if(strcmp(title,"0")==0)
         return 0;
+    else
+    {
+        sprintf(file_name,"%s.txt",title);
+
+        FILE *fp = fopen(file_name,"w");
+        FILE *master = fopen("set_list.txt","a");
+
+        if(fp == NULL||master == NULL)
+        {
+            printf("<File is empty>");
+            return 0;
+        }
+
+        fprintf(master,"%s\n",title);
+
+        fclose(fp);
+        fclose(master);
     }
 
-    fprintf(master, "%s\n", title);
-
-    fclose(fp);
-    fclose(master);
-
-    strcpy(buffer, title);
+    strcpy(buffer,title);
     return 1;
+
 }
 
 void DelSet(char *title)
@@ -151,66 +142,51 @@ int AddCard(char *title)
     char d[100];
     char file_name[50];
 
-    sprintf(file_name, "%s.txt", title);
+    sprintf(file_name,"%s.txt",title);
 
-    FILE *fp = fopen(file_name, "a");
-    if (fp == NULL)
+    FILE *fp = fopen(file_name,"a");
+    if(fp == NULL)
     {
-        printf("<Error opening file>");
+        printf("<File is empty>");
         return 1;
     }
 
     system("cls");
 
-    while (1)
+    while(1)
     {
-        printf("Enter word (max %d chars, or 0 to back): ", (int)sizeof(w)-1);
+        printf("Enter word (or enter 0 to go back): ");
         gets(w);
 
-        if (strcmp(w, "0") == 0)
+        if(strcmp(w,"0")== 0)
             break;
 
-        if (strlen(w) == 0)
+        else if(strcmp(w,"\0") == 0)
         {
-            printf("[Error] Empty is not allowed.\n");
-            Sleep(800);
-            continue;
+            printf("\n [Error] Space is not allowed! Please try again.\n\n");
+            Sleep(1000);
+        }
+        else
+        {
+            while(1)
+            {
+                printf("Enter definition (or enter 0 to go back): ");
+                gets(d);
+                if(strcmp(d,"0")== 0)
+                    return 0;
+
+                else if(strcmp(d,"\0") == 0)
+                {
+                    printf("\n [Error] Space is not allowed! Please try again.\n\n");
+                }
+                else break;
+            }
+            fprintf(fp,"%s:%s\n",w,d);
         }
 
-        if (strlen(w) >= sizeof(w))
-        {
-            printf("[Error] Word too long! Maximum %d characters.\n",
-                   (int)sizeof(w)-1);
-            Sleep(800);
-            continue;
-        }
-
-        printf("Enter definition (max %d chars, or 0 to back): ", (int)sizeof(d)-1);
-        gets(d);
-
-        if (strcmp(d, "0") == 0)
-            break;
-
-        if (strlen(d) == 0)
-        {
-            printf("[Error] Empty is not allowed.\n");
-            Sleep(800);
-            continue;
-        }
-
-        if (strlen(d) >= sizeof(d))
-        {
-            printf("[Error] Definition too long! Maximum %d characters.\n",
-                   (int)sizeof(d)-1);
-            Sleep(800);
-            continue;
-        }
-
-        fprintf(fp, "%s:%s\n", w, d);
     }
 
     fclose(fp);
-    return 0;
 }
 
 void DelCard(char *word,char *file)
@@ -290,7 +266,6 @@ int SetList()
 
     fclose(fp);
 }
-
 void card_menu(char *title)
 {
     char choice,confirm;
@@ -358,13 +333,13 @@ void card_menu(char *title)
                         {
                             DelCard(card,file_name);
                         }
-                        else
-                        {
-                            printf(">Canceled<");
-                            fflush(stdout);
-                            Sleep(1000);
-                        }
-                        break;
+                            else
+                            {
+                                printf(">Canceled<");
+                                fflush(stdout);
+                                Sleep(1000);
+                            }
+                            break;
 
                     }
                     else
@@ -415,7 +390,6 @@ void set_menu()
             case 'd':
                 while(1)
                 {
-
                     printf("Enter line number to delete(0 to cancel): ");
                     if(scanf("%d",&lineNum)!=1)
                     {
@@ -440,13 +414,13 @@ void set_menu()
                         {
                             DelSet(setName);
                         }
-                        else
-                        {
-                            printf(">Canceled<");
-                            fflush(stdout);
-                            Sleep(1000);
-                        }
-                        break;
+                            else
+                            {
+                                printf(">Canceled<");
+                                fflush(stdout);
+                                Sleep(1000);
+                            }
+                            break;
                     }
                     else
                     {
@@ -476,8 +450,10 @@ void set_menu()
                     }
                     if(GetLine(lineNum,"set_list",setName) == 1)
                     {
+
                             card_menu(setName);
-                        break;
+                            break;
+
                     }
                     else
                     {
@@ -495,7 +471,6 @@ void set_menu()
         }
     }while (choice != 'x');
 }
-
 void main_menu()
 {
     char choice;
@@ -531,6 +506,8 @@ void main_menu()
 
 int main()
 {
+
     main_menu();
+
     return 0;
 }
