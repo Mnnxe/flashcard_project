@@ -1,4 +1,10 @@
-A:a
-B:b
-C:c
-D:d
+Adequate:Good enough; sufficient.
+Ambiguous:Unclear; having double meanings.
+Consecutive:cFollowing in order; in a row.
+Deteriorate:To get worse.
+Emerge:To come out or appear.
+Feasible:Possible to do; doable.
+Implement:To put into action.
+Negotiate:To discuss to reach a deal.
+Resolve:To solve of fix.
+Sustain:To keep somthing going; to maintain.
