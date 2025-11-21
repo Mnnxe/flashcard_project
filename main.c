@@ -26,7 +26,7 @@ void trimNewline(char *str)
 char GetLine(int line,char *name ,char *buffer)
 {
     int current_line = 1;
-    char str[100];
+    char str[200];
     char file_name[100];
 
     sprintf(file_name,"%s.txt",name);
@@ -58,35 +58,31 @@ char GetLine(int line,char *name ,char *buffer)
 //file management function
 int AddSet(char *buffer)
 {
-    char file_name[50];
-    char title[50];
+    char file_name[100];
+    char title[100];
+    int MAX_LEN = 50;
 
-    while (1)
+    while(1)
     {
         system("cls");
-        printf("Enter title (max %d chars, or 0 to go back): ", (int)sizeof(title)-1);
+        printf("Enter title (max %d chars) or enter 0 to go back: ", MAX_LEN);
+        gets(title);
 
-        fgets(title, sizeof(title), stdin);
-        trimNewline(title);
-
-        if (strcmp(title, "0") == 0)
+        if(strcmp(title, "0") == 0)
             return 0;
 
-        if (strlen(title) == 0)
+        if(strlen(title) == 0)
         {
-            printf("\n[Error] Empty input is not allowed!\n");
-            Sleep(1000);
-            continue;
+            printf("\n[Error] Empty input is not allowed.\n");
+            Sleep(1200);
         }
-
-        if (strlen(title) >= sizeof(title))
+        else if(strlen(title) > MAX_LEN)
         {
-            printf("\n[Error] Title too long! Maximum %d characters.\n",
-                   (int)sizeof(title)-1);
-            Sleep(1000);
-            continue;
+            printf("\n[Error] Title is too long! Maximum is %d characters.\n", MAX_LEN);
+            Sleep(1200);
         }
-        else break;
+        else
+            break;
     }
 
     sprintf(file_name, "%s.txt", title);
@@ -94,9 +90,9 @@ int AddSet(char *buffer)
     FILE *fp = fopen(file_name, "w");
     FILE *master = fopen("set_list.txt", "a");
 
-    if (fp == NULL || master == NULL)
+    if(fp == NULL || master == NULL)
     {
-        printf("<Error opening file>");
+        printf("<File Error>");
         return 0;
     }
 
@@ -109,9 +105,10 @@ int AddSet(char *buffer)
     return 1;
 }
 
+
 void DelSet(char *title)
 {
-    char str[100];
+    char str[50];
     char file_name[100];
 
     sprintf(file_name,"%s.txt",title);
@@ -149,68 +146,71 @@ int AddCard(char *title)
 {
     char w[100];
     char d[100];
-    char file_name[50];
+    char file_name[100];
+    int MAX_LEN = 50;
 
     sprintf(file_name, "%s.txt", title);
 
     FILE *fp = fopen(file_name, "a");
-    if (fp == NULL)
+    if(fp == NULL)
     {
-        printf("<Error opening file>");
+        printf("<File Error>");
         return 1;
     }
 
     system("cls");
 
-    while (1)
+    while(1)
     {
-        printf("Enter word (max %d chars, or 0 to back): ", (int)sizeof(w)-1);
-        gets(w);
+        printf("Enter word (max %d chars) (or enter 0 to go back): ", MAX_LEN);
+        fgets(w,sizeof(w),stdin);
+        trimNewline(w);
 
-        if (strcmp(w, "0") == 0)
+        if(strcmp(w, "0") == 0)
             break;
 
-        if (strlen(w) == 0)
+        if(strlen(w) == 0)
         {
-            printf("[Error] Empty is not allowed.\n");
-            Sleep(800);
+            printf("\n[Error] Empty input is not allowed.\n");
+            Sleep(1000);
+            continue;
+        }
+        else if(strlen(w) > MAX_LEN)
+        {
+            printf("\n[Error] Word is too long! Maximum is %d characters.\n", MAX_LEN);
+            Sleep(1000);
             continue;
         }
 
-        if (strlen(w) >= sizeof(w))
-        {
-            printf("[Error] Word too long! Maximum %d characters.\n",
-                   (int)sizeof(w)-1);
-            Sleep(800);
-            continue;
-        }
+            while(1)
+            {
+                printf("Enter definition (max %d chars) (or enter 0 to cancel): ", MAX_LEN);
+                fgets(d,sizeof(d),stdin);
+                trimNewline(d);
 
-        printf("Enter definition (max %d chars, or 0 to back): ", (int)sizeof(d)-1);
-        gets(d);
+                if(strcmp(d, "0") == 0)
+                    return 0;
 
-        if (strcmp(d, "0") == 0)
-            break;
-
-        if (strlen(d) == 0)
-        {
-            printf("[Error] Empty is not allowed.\n");
-            Sleep(800);
-            continue;
-        }
-
-        if (strlen(d) >= sizeof(d))
-        {
-            printf("[Error] Definition too long! Maximum %d characters.\n",
-                   (int)sizeof(d)-1);
-            Sleep(800);
-            continue;
-        }
-
+                if(strlen(d) == 0)
+                {
+                    printf("\n[Error] Empty input is not allowed.\n");
+                    Sleep(1000);
+                    continue;
+                }
+                else if(strlen(d) > MAX_LEN)
+                {
+                    printf("\n[Error] Definition is too long! Maximum is %d characters.\n", MAX_LEN);
+                    Sleep(1000);
+                    continue;
+                }
+                else break;
+            }
         fprintf(fp, "%s:%s\n", w, d);
     }
 
+
     fclose(fp);
-    return 0;
+    return 1;
 }
 
 void DelCard(char *word,char *file)
@@ -295,7 +295,7 @@ void card_menu(char *title)
 {
     char choice,confirm;
     char file_name[100];
-    char card[100];
+    char card[200];
     int lineNum;
 
     sprintf(file_name,"%s.txt",title);
