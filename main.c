@@ -514,8 +514,12 @@ void main_menu()
         switch(choice)
         {
             case '1':
-                printf("Starting game...\n");
-                Sleep(1000);
+                system("cls");
+                SetList();
+                printf("Which set you want to play: ");
+                scanf("%d",&line);
+                GetLine(line,"set_list",setName);
+                StartGame(setName);
                 break;
 
             case '2': set_menu(); break;
@@ -528,6 +532,13 @@ void main_menu()
         }
     }while(choice != 'x');
 }
+
+char getSet()
+{
+
+    return;
+}
+
 
 int main()
 {

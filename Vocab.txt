@@ -1,6 +1,6 @@
 Adequate:Good enough; sufficient.
 Ambiguous:Unclear; having double meanings.
-Consecutive:cFollowing in order; in a row.
+Consecutive:Following in order; in a row.
 Deteriorate:To get worse.
 Emerge:To come out or appear.
 Feasible:Possible to do; doable.

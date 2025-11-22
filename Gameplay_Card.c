@@ -50,6 +50,22 @@ char GetLine(int line,char *name ,char *buffer)
     return 0;
 }
 
+void gotoxy(int x, int y) {
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void ClearBottom(int y) {
+    gotoxy(0, y);
+    for(int i = 0; i < 15; i++)
+    {
+        printf("                                                                                \n");
+    }
+    gotoxy(0, y); // กลับมารอที่เดิม
+}
+
 //file management function
 int AddSet(char *buffer)
 {
@@ -491,42 +507,9 @@ void set_menu()
     }while (choice != 'x');
 }
 
-void main_menu()
-{
-    char choice;
-
-    do
-    {
-        system("cls");
-        printf("[1] Start\n");
-        printf("[2] Manage Sets\n");
-        printf("[X] Close Program\n");
-
-        choice = _getch();
-        printf("%c",choice);
-        choice = tolower(choice);
-
-        switch(choice)
-        {
-            case '1':
-                printf("Starting game...\n");
-                Sleep(1000);
-                break;
-
-            case '2': set_menu(); break;
-
-            case 'x': return;
-
-            default :
-                printf("\n Invalid choice! Please try again.\n");
-                Sleep(1000);
-        }
-    }while(choice != 'x');
-}
 
 
-///////////////////////////////////////////////////////////////////
-
+//Q&A function
 
 struct Flashcard
 {
@@ -652,112 +635,253 @@ void SwapCards(struct Flashcard *a, struct Flashcard *b) {
     *b = temp;
 }
 
-void PlayRPG(struct Flashcard *deck, int count)
+int GetAns()
 {
-    struct Flashcard options[4];
-    int playerHP = 4;
-    int playerMaxHP = 4;
-    int bossHP = count;
-    int remaining = count;
-    int correctIdx;
-    int currentIdx;
-    int selected;
-    int bars;
-
-    system("cls");
-
-    if (count < 4)
-    {
-        printf("\n [Error] Not enough cards! Need at least 4 cards to play Choice Mode.\n");
-        Sleep(2000);
-        return;
-    }
-
-
-    while (remaining > 0 && playerHP > 0)
-    {
-        currentIdx = rand() % remaining;
-
-        GenerateOptions(deck, count, currentIdx, options, &correctIdx);
-
-        system("cls");
-        printf("===========================\n");
-        printf("      REMAINING: %d / %d   \n", remaining, count);
-        printf("===========================\n");
-
-
-
-        printf(" YOU:  ");
-        for(int h=0; h < playerMaxHP; h++)
+    int selected = -1;
+    char key;
+    while(1)
         {
-            if(h < playerHP) printf("O"); // O = หัวใจ
-            else printf("X");             // X = เจ็บ
-        }
-        printf("  |  ");
-
-        if (remaining > 10)
-        {
-            bars = 10;
-        }
-
-        else
-        {
-            bars = remaining;
-        }
-        printf(" BOSS: ");
-        for(int h=0; h<bars; h++) printf("#");
-
-        printf("\n========================================\n\n");
-
-        printf(" Question: [ %s ]\n\n", deck[currentIdx].word);
-
-        printf(" [1] %s\n", options[0].definition);
-        printf(" [2] %s\n", options[1].definition);
-        printf(" [3] %s\n", options[2].definition);
-        printf(" [4] %s\n", options[3].definition);
-
-        while(1)
-        {
-            printf("\n Select answer (1-4): ");
-            char key = _getch();
-
+            printf("Attack (1-4): ");
+            key = _getch();
             if(key >= '1' && key <= '4')
             {
                 selected = key - '1';
                 break;
             }
-        }
+            else
+            {
+                gotoxy(0,19);
+                printf("[Error] Invalid input.");
+                Sleep(1500);
+                gotoxy(0, 19);
+                printf("                                   ");
+                gotoxy(0,18);
 
-        if (selected == correctIdx)
+            }
+        }
+    return selected;
+}
+
+//RPG MODE
+void CalculateBossHP(int count, int *tierHP)
+{
+    tierHP[1] = (count * 15) / 100;
+    if(tierHP[1] < 1) tierHP[1] = 1;
+
+    tierHP[2] = (count * 20) / 100;
+    if(tierHP[2] < 1) tierHP[2] = 1;
+
+    tierHP[3] = (count * 30) / 100;
+    if(tierHP[3] < 1) tierHP[3] = 1;
+
+    tierHP[4] = count - (tierHP[1] + tierHP[2] + tierHP[3]);
+    if (tierHP[4] < 1) tierHP[4] = 1;
+
+}
+
+
+void Monster(int currentTier)
+{
+    //random boss
+        if(currentTier == 1)
         {
-            printf("\n\n >>> Correct! Critical Hit! <<<\n");
-            bossHP--;
-            remaining--;
-            SwapCards(&deck[currentIdx], &deck[remaining]);
+            printf("       /o..o\\  [ Dialog ]\n");
+            printf("      ( >_< )  [  Name  ]\n");
+        }
+        else if(currentTier == 2)
+        {
+            printf("       /|  |\\  [ Dialog ]\n");
+            printf("      ( O_O )  [  Name  ]\n");
+        }
+        else if(currentTier == 3)
+        {
+            printf("      /|__o__|\\  [ Dialog ]\n");
+            printf("     (  > _ <  ) [  Name  ]\n");
         }
         else
         {
-            printf("\n\n >>> WRONG! You took damage! <<<\n");
-            printf(" Correct answer was: [%d] %s\n", correctIdx+1, deck[currentIdx].definition);
+            printf("     <`|\\_//|`>  [ Dialog ]\n");
+            printf("      ( @ A @ )  [  Name  ]\n");
+        }
+}
+void ClearBoss()
+{
+    int i;
+    gotoxy(0,6);
+    for(i=0;i<4;i++)
+    {
+        printf("                                                               \n");
+    }
+}
+
+void Scene(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score)
+{
+    system("cls");
+
+    printf("========================================\n");
+
+    if (currentTier == 4) printf(" >> FINAL BOSS << ");
+    else printf(" LEVEL %d / 4      ", currentTier);
+
+    printf("|   SCORE: %d\n", score);
+    printf("========================================\n");
+    printf(" BOSS: \n");
+    printf("  YOU: \n");
+    printf("========================================\n\n");
+
+    Monster(currentTier); // วาดมอนสเตอร์ (ประมาณบรรทัด 8-13)
+
+    printf("\n========================================\n");
+}
+
+
+void UpdateStats(int currentBossHP, int currentBossMaxHP, int playerHP, int playerMaxHP, int score)
+{
+    int bars;
+    int h;
+
+    //update score
+    gotoxy(29, 1);
+    printf("%d    ", score);
+
+    //update boss hp
+    gotoxy(7,3);
+    if (currentBossHP > 10)
+    {
+        bars = 10;
+    }
+    else
+    {
+        bars = currentBossHP;
+    }
+
+    for(int h=0; h<bars; h++)
+        if(h<bars)
+            printf("#"); // เขียนทับขีดเดิม
+        else
+            printf(" ");
+
+    printf(" [%d/%d]   ", currentBossHP, currentBossMaxHP); // เติมช่องว่างท้ายกันเลขค้าง
+
+    //update player hp
+    gotoxy(7,4);
+    for(int h=0; h < playerMaxHP; h++) {
+        if(h < playerHP)
+            printf("O");
+        else
+            printf("X");
+    }
+}
+void PlayRPG(struct Flashcard *deck, int count)
+{
+    if(count < 4)
+    {
+        printf("\n [Error] Not enough cards! Need at least 4 cards.\n");
+        Sleep(2000);
+        return;
+    }
+
+    int tierHP[5];
+    CalculateBossHP(count,tierHP);
+
+    int currentTier = 1;
+    int currentBossMaxHP = tierHP[1];
+    int currentBossHP = tierHP[1];
+
+    int playerHP = count/3;
+    int playerMaxHP = count/3;
+    int remaining = count;
+    int score = 0;
+
+    struct Flashcard options[4];
+    int correctIdx;
+    int currentIdx;
+
+    int selected;
+
+    Scene(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score);
+
+    while (remaining > 0 && playerHP > 0)
+    {
+        currentIdx = rand() % remaining;
+        GenerateOptions(deck, count, currentIdx, options, &correctIdx);
+
+        UpdateStats(currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score);
+
+        ClearBottom(11);
+
+        printf(" Question: [ %s ]\n\n", deck[currentIdx].word);
+        printf(" [1] %s\n", options[0].definition);
+        printf(" [2] %s\n", options[1].definition);
+        printf(" [3] %s\n", options[2].definition);
+        printf(" [4] %s\n", options[3].definition);
+
+        printf("\n");
+
+        selected = GetAns();
+
+        if (selected == correctIdx)
+        {
+            printf("\n\n >>> CRITICAL HIT! <<<\n");
+            score++;
+            currentBossHP--;
+            remaining--;
+            SwapCards(&deck[currentIdx], &deck[remaining]);
+
+            if (currentBossHP <= 0 && remaining > 0)
+            {
+                ClearBoss();
+                currentTier++;
+                currentBossMaxHP = tierHP[currentTier];
+                currentBossHP = currentBossMaxHP;
+
+                if(playerHP < playerMaxHP)
+                    playerHP++;
+
+                ClearBottom(11);
+                printf("\n *** LEVEL CLEARED! BOSS EVOLVED! ***\n");
+                Sleep(1500);
+                ClearBottom(11);
+
+                gotoxy(0,11);
+                printf("[Cutscene]\n\n");
+                printf("[Item]\n");
+
+                printf("\nPress any key to continue...");
+                _getch();
+                Scene(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score);
+                continue;
+            }
+        }
+        else
+        {
+            printf("\n\n >>> MISS! You took damage! <<<\n");
+            printf(" Correct: [%d] %s\n", correctIdx+1, deck[currentIdx].definition);
             playerHP--;
         }
 
-        Sleep(1500);
+        Sleep(1200);
     }
 
+    //Result
     system("cls");
-    printf("=====================================\n");
+    printf("========================================\n");
     if(playerHP > 0)
     {
         printf("       VICTORY! \n");
-        printf(" You cleared the dungeon!\n");
+        printf("========================================\n");
+        printf(" You defeated all monsters!\n");
     }
     else
     {
         printf("       GAME OVER \n");
-        printf(" %d monsters left to defeat...\n", remaining);
+        printf("========================================\n");
+        if (currentTier == 4) printf(" You fell to the Dragon...\n");
+        else printf(" You fell at Level %d\n", currentTier);
     }
-    printf("=====================================\n");
+
+    printf(" Final Score: %d / %d\n", score, count);
+    printf("========================================\n");
     printf(" Press any key to return...");
     _getch();
 }
@@ -769,6 +893,7 @@ void StartGame(char *setName)
 
     system("cls");
     printf("Loading deck: %s...\n",setName);
+    Sleep(1000);
 
     totalCards = LoadDeck(setName,deck);
 
@@ -792,6 +917,5 @@ void StartGame(char *setName)
 int main()
 {
     StartGame("Vocab");
-    return 0;
 }
 
