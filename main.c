@@ -291,7 +291,7 @@ int SetList()
     fclose(fp);
 }
 
-void card_menu(char *title)
+void CardMenu(char *title)
 {
     char choice,confirm;
     char file_name[100];
@@ -316,9 +316,7 @@ void card_menu(char *title)
         printf("======== %s ========\n",title);
         CardList(title);
         printf("\n");
-        printf("[A] Add card\n");
-        printf("[D] Delete card\n");
-        printf("[X] Back\n");
+        printf("\n[A]Add  [D]Delete  [X]Back ");
         printf("\nSelect an option: ");
         choice = _getch();
         printf("%c\n",choice);
@@ -384,7 +382,7 @@ void card_menu(char *title)
     }while (choice != 'x');
 }
 
-void set_menu()
+void RunSetMenu()
 {
     char choice,confirm;
     char setName[100];
@@ -396,10 +394,7 @@ void set_menu()
         printf("======== Flashcard Sets ========\n");
         SetList();
         printf("\n");
-        printf("[A] Add set\n");
-        printf("[D] Delete set\n");
-        printf("[M] Manage set\n");
-        printf("[X] Back\n");
+        printf("\n[A]Add  [D]Delete  [M]Manage  [X]Exit\n");
         printf("\nSelect an option: ");
         choice = _getch();
         printf("%c\n",choice);
@@ -409,7 +404,7 @@ void set_menu()
         {
             case 'a':
                 if (AddSet(setName) == 1)
-                    card_menu(setName);
+                    CardMenu(setName);
                 break;
 
             case 'd':
@@ -476,7 +471,7 @@ void set_menu()
                     }
                     if(GetLine(lineNum,"set_list",setName) == 1)
                     {
-                            card_menu(setName);
+                            CardMenu(setName);
                         break;
                     }
                     else
@@ -496,9 +491,19 @@ void set_menu()
     }while (choice != 'x');
 }
 
-void main_menu()
+/*
+char getSet()
 {
-    char choice;
+
+    return;
+}
+*/
+
+int main()
+{
+     char choice;
+    int line;
+    char setName[100];
 
     do
     {
@@ -515,33 +520,21 @@ void main_menu()
         {
             case '1':
                 system("cls");
-                SetList();
+                //SetList();
                 printf("Which set you want to play: ");
-                scanf("%d",&line);
-                GetLine(line,"set_list",setName);
-                StartGame(setName);
+                //scanf("%d",&line);
+                //GetLine(line,"set_list",setName);
+                //StartGame(setName);
                 break;
 
-            case '2': set_menu(); break;
+            case '2': RunSetMenu(); break;
 
-            case 'x': return;
+            case 'x': return 0;
 
             default :
                 printf("\n Invalid choice! Please try again.\n");
                 Sleep(1000);
         }
     }while(choice != 'x');
-}
-
-char getSet()
-{
-
-    return;
-}
-
-
-int main()
-{
-    main_menu();
     return 0;
 }
