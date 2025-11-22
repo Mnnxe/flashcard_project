@@ -14,7 +14,7 @@ printf("\t  **------------^^^^^^^-------------**\n");
 printf("\t  **--------------------------------**\n");
 printf("\t   **********************************  \n");
 printf(" \33[0m\n");
-    
+
 printf(" \33[92m");
 printf("              ***                \n");
 printf("             ссссссс                  \n");
@@ -32,7 +32,6 @@ printf("       (O)  II=====II    |  ))    \n");
 printf("            /  / \\  \\    | ))       \n");
 printf("           /  /   \\  \\   |))     \n");
 printf("       <XXXXXXX)  (XXXXXXX>         \n");
-    
 printf(" \33[91m\n\n");
 printf("     A               \n");
 printf("    T^T                \n");
@@ -51,8 +50,8 @@ printf("            /  / \\  \\           \n");
 printf("           /  /   \\  \\       \n");
 printf("       <wwwwwww)  (wwwwwww>         \n");
 
-
-printf("\033[94m\n\n");
+printf("\033[94m\n");
+printf("                  \n");
 printf("              @ \n");
 printf("              /\\    \n");
 printf("             /  \\     \n");
@@ -75,6 +74,4 @@ printf("     H <<<<<<<)  (>>>>>>>>         \n");
 
 printf(" \33[0m\n");
 
-
 }
-
