@@ -1,7 +1,7 @@
 #include<stdio.h>
 int main()
 {
-    printf("\033[32;5m");
+printf("\033[32;5m");
 printf("\t       *************************\n ");
 printf("\t      **-----------------------**      \n ");
 printf("\t     ***-----------------------***    \n");
@@ -13,8 +13,26 @@ printf("\t  **------------vvvvvvv-------------**\n");
 printf("\t  **------------^^^^^^^-------------**\n");
 printf("\t  **--------------------------------**\n");
 printf("\t   **********************************  \n");
-
 printf(" \33[0m\n");
+    
+printf(" \33[92m");
+printf("              ***                \n");
+printf("             ссссссс                  \n");
+printf("            ссссссссс                    \n");
+printf("           HHHHHHHHHHH   )       \n");
+printf("          HH|\\__ __/|HH   |))      \n");
+printf("          Hq|  $  $ |pH   | ))      \n");
+printf("          HH\\    3  /HH   |  ))     \n");
+printf("          HH |_____| HH   |   ))         \n");
+printf("          HH===   ===HH   |    ))  \n");
+printf("        o>>///     \\\\\\<<<<<<(|))))           \n");
+printf("        V   II     II    |    ))      \n");
+printf("        V   II     II    |   ))    \n");
+printf("       (O)  II=====II    |  ))    \n");
+printf("            /  / \\  \\    | ))       \n");
+printf("           /  /   \\  \\   |))     \n");
+printf("       <XXXXXXX)  (XXXXXXX>         \n");
+    
 printf(" \33[91m\n\n");
 printf("     A               \n");
 printf("    T^T                \n");
@@ -33,8 +51,8 @@ printf("            /  / \\  \\           \n");
 printf("           /  /   \\  \\       \n");
 printf("       <wwwwwww)  (wwwwwww>         \n");
 
-printf("\033[94m");
-printf("                  \n");
+
+printf("\033[94m\n\n");
 printf("              @ \n");
 printf("              /\\    \n");
 printf("             /  \\     \n");
@@ -59,3 +77,4 @@ printf(" \33[0m\n");
 
 
 }
+
