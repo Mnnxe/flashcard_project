@@ -491,14 +491,6 @@ void RunSetMenu()
     }while (choice != 'x');
 }
 
-/*
-char getSet()
-{
-
-    return;
-}
-*/
-
 int main()
 {
      char choice;
