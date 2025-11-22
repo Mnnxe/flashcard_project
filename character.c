@@ -73,5 +73,12 @@ printf("     H     /  /   \\  \\       \n");
 printf("     H <<<<<<<)  (>>>>>>>>         \n");
 
 printf(" \33[0m\n");
-
+printf("                       __\n");
+printf("                      / _)\n");
+printf("             _/\\/\\/\\_/ /\n");
+printf("           _|         /\n");
+printf("         _|  (| )   (|\n");
+printf("        /__.-'|_|--|_|\n");
+return 0;
 }
+
