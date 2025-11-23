@@ -153,7 +153,7 @@ void start_story()
     char c;
     int i;
     system("cls");
-    char st0[500] = {"-----------------------------------------------------------------------------------------------------------\n"};
+    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n\n"};
     char st1[500] = {"A hundred years have passed since the Dawnfall, the day the sun refused to rise.\n"};
 
     char st2[500] = {"Shadows stretched across the lands, and fear became constant.\n"};
@@ -308,7 +308,7 @@ void final_cut()
     int i;
 
     system("cls");
-    char st0[500] = {"-----------------------------------------------------------------------------------------------------------\n"};
+    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n\n"};
     char st1[500] = {"As the final shadow collapses, darkness shatters and disperses into the air.\n"};
     char st2[500] = {"A warm, golden light rises from where the enemy fell, spreading across the land.\n"};
 
@@ -405,7 +405,7 @@ void final_loss()
     char c;
     int i;
 
-    char st0[500] = {"-------------------------------------------------------------------------------\n"};
+    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n\n"};
     char st1[500] = {"Your final strike fades inches from the shadow’s heart.\n"};
     char st2[500] = {"The world holds its breath as your light collapses in its grasp.\n"};
 
@@ -486,137 +486,152 @@ Character m_trex;
 Character m_demon;
 Character m_sahur;
 Character m_dragon;
+Character e_empty;
 
 const char *squid[] =
 {
-    "    .---.    ",//1
-    "   /     \\    ",//2
-    "  |  .-.  |  ",//3
-    "  | (o o) |  ",//4
-    "  |  '-'  |  ",//5
-    "   \\  .  /  ",//6
-    "   '--'--.   ",//7
-    "  /  /\\   \\  ",//8
-    " /  /  \\   \\  ",//9
-    "|  |    |  |  ",//10
-    " \\|     |/     ",//11
+    "\t\t     +--------------------------------------------------+",//12
+    "\t\t     |Hope is dust. Let me show you how easily it fades.|",//13
+    "\t\t     +--------------------------------------------------+",//14
+    "\t\t    .---.                                                ",//1
+    "\t\t   /     \\                                               ",//2
+    "\t\t  |  .-.  |                                              ",//3
+    "\t\t  | (o o) |                                              ",//4
+    "\t\t  |  '-'  |                                              ",//5
+    "\t\t   \\  .  /                                               ",//6
+    "\t\t   '--'--.                                               ",//7
+    "\t\t  /  /\\   \\                                              ",//8
+    "\t\t /  /  \\   \\                                             ",//9
+    "\t\t|  |    |  |                                             ",//10
+    "\t\t \\|     |/                                                ",//11
 };
 
 const char* dino[] =
 {
-    "  __                        ",//1
-    " (_ \\                     ",//2
-    "   \\ \\                   ",//4
-    "    \\ \\_/\\/\\/\\/\\_    ",//3
-    "     \\           |_       ",//5
-    "      \\            |_     ",//6
-    "       |             |_    ",//7
-    "       | |)  (| |)     \\  ",//8
-    "       |_|----|_|'--\\___\\",//9
+    "\t\t  __        +---------------------------------------------+ ",//1
+    "\t\t (_ \\       |The sun left us. Your spark will vanish next.|  ",//2
+    "\t\t   \\ \\      +---------------------------------------------+   ",//4
+    "\t\t    \\ \\_/\\/\\/\\/\\_                                           ",//3
+    "\t\t     \\           |_                                         ",//5
+    "\t\t      \\            |_                                       ",//6
+    "\t\t       |             |_                                     ",//7
+    "\t\t       | |)  (| |)     \\                                    ",//8
+    "\t\t       |_|----|_|'--\\___\\                                   ",//9
 };
 
 const char* slime[] =
 {
-    "        ********        ",//1
-    "    **            **    ",//2
-    "  **   #      #     **  ",//3
-    " **                  ** ",//4
-    "**      vvvvvv        **",//5
-    "**                    **",//6
-    "************************",//7
+    "\t\t     +-------------------------------------------------------+",//11
+    "\t\t     | I've seen countless lights die. Yours will join them. |",//10
+    "\t\t     +-------------------------------------------------------+",//9
+    "\t\t                                                              ",//8
+    "\t\t        ********                                              ",//1
+    "\t\t    **            **                                          ",//2
+    "\t\t  **   O      O     **                                        ",//3
+    "\t\t **                  **                                       ",//4
+    "\t\t**      vvvvvv        **                                      ",//5
+    "\t\t**                    **                                      ",//6
+    "\t\t************************                                      ",//7
 };
 
 const char* fish[] =
 {
-    "       .   ,  ,    .         ",//1
-    "       )\\_/|_/|_  /         ",//2
-    "    .-'        /_/(          ",//3
-    "   '  .-'`'-.   /_(          ",//4
-    "  /  (    o  ) /___(         ",//5
-    " /u   '-._.-'  \\ _(/        ",//6
-    "^--------^-^-)  ) \\_     /  ",//7
-    "\\ _________         '-._.)\\",//8
-    " (,(,(,(_______)_____..---'  "//9
+    "\t\t           +-----------------------------------------+",//10
+    "\t\t           |I failed the dawn... and now so will you.|",//11
+    "\t\t           +-----------------------------------------+",//12
+    "\t\t       .   ,  ,    .                                   ",//1
+    "\t\t       )\\_/|_/|_  /                                  ",//2
+    "\t\t    .-'        /_/(                                   ",//3
+    "\t\t   '  .-'`'-.   /_(                                   ",//4
+    "\t\t  /  (    o  ) /___(                                  ",//5
+    "\t\t /u   '-._.-'  \\ _(/                                  ",//6
+    "\t\t^--------^-^-)  ) \\_     /                            ",//7
+    "\t\t\\ _________         '-._.)\\                            ",//8
+    "\t\t (,(,(,(_______)_____..---'                           "//9
 };
 
 const char* trex[] =
 {
-    "  ********          ",//1
-    " *       **         ",//2
-    " *     * **         ",//3
-    " *       **         ",//4
-    " ******  **      *  ",//5
-    "  *****  ***     *  ",//6
-    "    ***    ***  **  ",//7
-    "      *      *****  ",//8
-    "     ***         *  ",//9
-    "     * *         *  ",//10
-    "       *        *   ",//11
-    "        * ***  *    ",//12
-    "        ********    ",//13
-    "        *** ****    ",//14
-    "       ****  ***    "//15
+    "\t\t  ********    +-------------------------------------------+",//1
+    "\t\t*        **   | Every spark I touch dies. Yours will too. |",//2
+    "\t\t*      O **   +-------------------------------------------+",//3
+    "\t\t*        **                                                ",//4
+    "\t\t ******  **      *                                         ",//5
+    "\t\t  *****  ***     *                                         ",//6
+    "\t\t    ***    ***  **                                         ",//7
+    "\t\t      *      *****                                         ",//8
+    "\t\t     ***         *                                         ",//9
+    "\t\t     * *         *                                         ",//10
+    "\t\t       *        *                                          ",//11
+    "\t\t        * ***  *                                           ",//12
+    "\t\t        ********                                           ",//13
+    "\t\t        *** ****                                           ",//14
+    "\t\t       ****  ***                                           "//15
 };
 const char* demon[] =
 {
-    "   /\\__         __/\\   ", // 1
-    "  /`    \\     /    `\\  ", // 2
-    "===      \\___/      === ",   // 3
-    " |  O    _   _    O  |   ",   // 4
-    " \\      (     )      /  ",  // 5
-    " /|      V---V      |\\  ",  // 6
-    "/ |      |   |      | \\ ",  // 7
-    "  |______|___|______|    ",   // 8
-    "   |    |     |    |     ",   // 9
-    "  (vvvvvv)   (vvvvvv)    "    // 10
+    "\t\t        +---------------------------------------------------+ ",//13
+    "\t\t        | Stone remembers despair. You’re nothing before me.| ",//12
+    "\t\t        +---------------------------------------------------+ ",//11
+    "\t\t   /\\__         __/\\                                        ", // 1
+    "\t\t  /`    \\     /    `\\                                       ", // 2
+    "\t\t===      \\___/      ===                                      ",   // 3
+    "\t\t |  O    _   _    O  |                                        ",   // 4
+    "\t\t \\      (     )      /                                       ",  // 5
+    "\t\t /|      V---V      |\\                                       ",  // 6
+    "\t\t/ |      |   |      | \\                                      ",  // 7
+    "\t\t  |______|___|______|                                         ",   // 8
+    "\t\t   |    |     |    |                                          ",   // 9
+    "\t\t  (vvvvvv)   (vvvvvv)                                         "    // 10
 };
 
 const char *dragon[] =
 {
-    "                        _____                 ",//1
-    "   ___                 / _   \\              ",//2
-    "  /   \\____-----------/ (o)   \\_           ",//3
-    " (  O   )                        \\____      ",//4
-    " \\_____________                   \\  /     ",//5
-    "   VVVVVVV VV V\\                   \\/      ",//6
-    "  (AAAAAAAAAAA__A_/                |          ",//7
-    "   \\______________//_              \\_______",//8
-    "                     \\___           \\     /",//9
-    "                         |           \\   /  ",//10
-    "                        /             \\/    "//11
+    "  +-------------------------------------------------------------+        ",//1
+    "  | Your journey ends here.                                     |        ",//2
+    "  | I've watched you crawl through shadows and cling to hope... |        ",//3
+    "  | but this is where it finally breaks!                        |        ",//4
+    "  +-------------------------------------------------------------+        ",//5
+    "     |  (  \\ ( \\                                    _____                ",//6
+    "    \\ \\  `  `   )              ___                 / _   \\               ",//7
+    " (_`   \\+   . x  ( .          /   \\____-----------/ (o)   \\_             ",//8
+    "- .               \\+  ;      (  O                           \\____        " ,//9
+    "                         )    \\_____________  `              \\  /        ",//10
+    "(__               +- .( -'.-  _  VVVVVVV VV V\\                \\/         ",//11
+    "(_____           ._._: <_  _  (--  _AAAAAAA__A_/              |          ",//12
+    "  .   /./.+-  . .- /  +  .     \\______________//_              \\_______  ",//13
+    "  (__' /x  / x _/ (                              \\___'          \\     /  ",//14
+    " , x  ( '  . / .                                     |           \\   /   ",//15
+    "    / /                                              /             \\/    "//16
+
 };
 
 const char* sahur[] =
 {
-    "        AAAAAAAAAAAAA     ",//1
-    "       |  --     --  |    ",//2
-    "       |   8     8   |    ",//3
-    "       |  808   808  |    ",//4
-    "       \\   8  |  8   /     ",//5
-    "    ::: |     |     |:::  ",//6
-    "    H   |    ===    |  H  ",//7
-    "    H   |           |  H  ",//8
-    "    H   |           |  H  ",//9
-    "    H   |           |  H  ",//10
-    "    H   |           |  H  ",//11
-    "   (H)  |           | (H) ",//12
-    "   !+!  |           |     ",//13
-    "   !+!  |           |     ",//14
-    "   !+!  |           |     ",//15
-    "   !+!  vvvvvvvvvvvvv     ",//16
-    "   !+!     ||   ||        ",//17
-    "   !+!     ||   ||        ",//18
-    "   !+!     ||   ||        ",//19
-    "   !+!     ||   ||        ",//20
-    "   !=!  #####   #####     "//21
+    "        AAAAAAAAAAAAA     +-----------------------+",//1
+    "       |  --     --  |    | TUNG TUNG TUNG SAHUR! |",//2
+    "       |   8     8   |    +-----------------------+",//3
+    "       |  808   808  |                             ",//4
+    "       \\   8  |  8   /                             ", //5
+    "    ::: |     |     |:::                           ",//6
+    "    H   |    ===    |  H                           ",//7
+    "    H   |           |  H                           ",//8
+    "    H   |           |  H                           ",//9
+    "    H   |           |  H                           ",//10
+    "    H   |           |  H                           ",//11
+    "   (H)  |           | (H)                          ",//12
+    "   !+!  |           |                              ",//13
+    "   !+!  vvvvvvvvvvvvv                              ",//14
+    "   !+!     ||   ||                                 ",//15
+    "   !+!     ||   ||                                 ",//16
+    "   !+!     ||   ||                                 ",//17
+    "   !=!  #####   #####                              "//18
 
 };
 
 
 const char* swordsman[] =
 {
-    "                          ",//1
-    "                          ",//2
     "                          ",//3
     "                          ",//4
     "                          ",//5
@@ -640,18 +655,16 @@ const char* swordsman[] =
 
 const char* sorcerer[] =
 {
-    "                         ",//1
-    "                         ",//2
     "                         ",//3
     "                         ",//4
     "                         ",//5
-    "                         ",//6
-    "            @            ", // 7
+    "                          ",//6
+    "            @             ", // 7
     "           /o\\            ", // 8
     "          /o*o\\           ", // 9
     "         /  o  \\          ", //10
     "      <<<--------->>>    ", // 11
-    " O      | __?__ |        ", // 12
+    "  O     | __?__ |        ", // 12
     " O*O   q|  y  y |p       ", // 13
     "  O     |_______|        ", // 14
     "#####   ===   ===        ", // 15
@@ -665,8 +678,6 @@ const char* sorcerer[] =
 
 const char* archer[] =
 {
-    "                            ",//1
-    "                            ",//2
     "                            ",//3
     "                            ",//4
     "                            ",//5
@@ -688,61 +699,66 @@ const char* archer[] =
     " <XXXXX)  (XXXXX>  |))      "//21
 };
 
+const char* empty[] = {};
 void CharacterData()
 {
+    e_empty.lines = 0;
+    e_empty.width = 0;
+    e_empty.art = empty;
+
     strcpy(c_swordsman.name,"Swordsman");
-    c_swordsman.lines = 21;
+    c_swordsman.lines = 19;
     c_swordsman.width = 26;
     c_swordsman.art = swordsman;
 
     strcpy(c_sorcerer.name,"Sorcerer");
-    c_sorcerer.lines = 21;
+    c_sorcerer.lines = 19;
     c_sorcerer.width = 26;
     c_sorcerer.art = sorcerer;
 
     strcpy(c_archer.name,"Archer");
-    c_archer.lines = 21;
+    c_archer.lines = 19;
     c_archer.width = 28;
     c_archer.art = archer;
 
     strcpy(m_squid.name,"Squid");
-    m_squid.lines = 11;
-    m_squid.width = 14;
+    m_squid.lines = 14;
+    m_squid.width = 57;
     m_squid.art = squid;
 
     strcpy(m_dino.name,"Dino");
     m_dino.lines = 9;
-    m_dino.width = 27;
+    m_dino.width = 60;
     m_dino.art = dino;
 
     strcpy(m_slime.name,"Slime");
-    m_slime.lines = 7;
-    m_slime.width = 24;
+    m_slime.lines = 11;
+    m_slime.width = 62;
     m_slime.art = slime;
 
     strcpy(m_fish.name,"Fish");
-    m_fish.lines = 9;
-    m_fish.width = 29;
+    m_fish.lines = 12;
+    m_fish.width = 54;
     m_fish.art = fish;
 
     strcpy(m_demon.name,"Demon");
-    m_demon.lines = 10;
-    m_demon.width = 30;
+    m_demon.lines = 13;
+    m_demon.width = 62;
     m_demon.art = demon;
 
     strcpy(m_trex.name,"T-Rex");
     m_trex.lines = 15;
-    m_trex.width = 20;
+    m_trex.width = 59;
     m_trex.art = trex;
 
-    strcpy(m_dragon.name,"Tung Tung Tung Sahur");
-    m_sahur.lines = 21;
-    m_sahur.width = 26;
+    strcpy(m_sahur.name,"Tung Tung Tung Sahur");
+    m_sahur.lines = 18;
+    m_sahur.width = 51;
     m_sahur.art = sahur;
 
     strcpy(m_dragon.name,"Dragon");
-    m_dragon.lines = 11;
-    m_dragon.width = 45;
+    m_dragon.lines = 16;
+    m_dragon.width = 73;
     m_dragon.art = dragon;
 }
 
@@ -767,14 +783,14 @@ void printCharacter(Character* p, Character* m)
 
         if(line >= pStart)
         {
-            printf(" %s", p->art[line - pStart]);
+            printf("     %s", p->art[line - pStart]);
         }
         else
         {
-            printf(" %*s", p->width, "");
+            printf("     %*s", p->width, "");
         }
 
-        printf("                 ");
+        printf("          ");
 
         mStart = maxLines - m->lines;
 
@@ -791,22 +807,26 @@ void Monster(int currentTier,Character *player,int randomMonster)
     //random boss
         if(currentTier == 1)
         {
-            if(randomMonster == 0) printCharacter(player,&m_squid);
-            else                   printCharacter(player,&m_dino);
+            if(randomMonster == 2)      printCharacter(player,&e_empty);
+            else if(randomMonster == 0) printCharacter(player,&m_squid);
+            else                        printCharacter(player,&m_dino);
         }
         else if(currentTier == 2)
         {
-            if(randomMonster == 0) printCharacter(player,&m_slime);
+            if(randomMonster == 2)      printCharacter(player,&e_empty);
+            else if(randomMonster == 0) printCharacter(player,&m_slime);
             else                   printCharacter(player,&m_fish);
         }
         else if(currentTier == 3)
         {
-            if(randomMonster == 0) printCharacter(player,&m_demon);
+            if(randomMonster == 2)      printCharacter(player,&e_empty);
+            else if(randomMonster == 0) printCharacter(player,&m_demon);
             else                   printCharacter(player,&m_trex);
         }
         else
         {
-            if(randomMonster == 0)printCharacter(player,&m_dragon);
+            if(randomMonster == 2)      printCharacter(player,&e_empty);
+            else if(randomMonster == 0)printCharacter(player,&m_dragon);
             else                  printCharacter(player,&m_sahur);
 
         }
@@ -834,15 +854,15 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     system("cls");
 
-    printf("==========================================================================================\n");
+    printf("===================================================================================================================\n");
 
-    if (currentTier == 4) printf("%25s",">> FINAL BOSS << ");
-    else printf("%25s %d / 4     ","PHASE", currentTier);
+    if (currentTier == 4) printf("%40s",">> FINAL BOSS << ");
+    else printf("%40s %d / 4     ","PHASE", currentTier);
 
     printf("|      SCORE: %d\n", score);
-    printf("==========================================================================================\n");
+    printf("===================================================================================================================\n");
 
-    printf("%15s","YOU: ");
+    printf("%18s","YOU: ");
     for(h=0; h < playerMaxHP; h++)
     {
         if(h < playerHP) printf("O");
@@ -852,7 +872,7 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
     {
         printf("[]");
     }
-    printf("%30s","BOSS: ");
+    printf("%58s","BOSS: ");
     if (currentBossHP > 10)
     {
         bars = 10;
@@ -872,14 +892,14 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     Monster(currentTier,player,randomMonster);
 
-    printf("------------------------------------------------------------------------------------------\n");
+    printf("-------------------------------------------------------------------------------------------------------------------\n\n");
 
     if(word != NULL)
     {
-        printf(" Question: [ %s ]\n\n", word);
+        printf("\t\t\t\tQuestion: [ %s ]\n\n", word);
         for(int i=0; i<4; i++)
         {
-            printf(" [%d] %s\n", i+1, options[i].definition);
+            printf("\t\t\t\t     [%d] %s\n", i+1, options[i].definition);
         }
     }
     printf("\n");
@@ -888,10 +908,10 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 void EventScene(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score,int shield,int randomMonster,char *message,char *reward,Character *player)
 {
     system("cls");
-    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomMonster,NULL,player,NULL);
-    printf("      %s\n\n", message);
-    printf("      %s\n\n", reward);
-    printf("Enter any key to continue...");
+    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,2,NULL,player,NULL);
+    printf("\t\t\t\t%s\n\n", message);
+    printf("\t\t\t\t%s\n\n", reward);
+    printf("\t\t\t\tEnter any key to continue...");
     _getch();
 }
 
@@ -922,7 +942,7 @@ void RandomEvent(int *playerHP, int playerMaxHP, int *score, int *shield, int cu
         }
         strcpy(reward,"Reward: +1 HP");
         if(*playerHP < playerMaxHP) (*playerHP)++;
-        else strcat(reward," Your HP is full");
+        else strcat(reward," >>Your HP is full");
     }
 
     if(event == 1)
@@ -962,10 +982,11 @@ void PlayRPG(struct Flashcard *deck, int count)
 
     //start_story();
 
+
+
     while(1)
     {
         system("cls");
-
         printf("==============================================================================================\n");
         printf("%55s\n","Choose your character");
         printf("==============================================================================================\n");
@@ -985,7 +1006,8 @@ void PlayRPG(struct Flashcard *deck, int count)
         printf("     You are the forest's final hope - the wind itself bends to your aim.\n");
         printf("\n");
         printf("Select: ");
-        scanf("%d", &choice);
+        scanf("%d",&choice);
+        clearBuffer();
 
         if(choice == 1)
         {
@@ -1002,8 +1024,18 @@ void PlayRPG(struct Flashcard *deck, int count)
             player = &c_archer;
             break;
         }
-        else printf("[!] Invalid Input!\n");
+        else
+        {
+            printf("[!] Invalid Input!\n");
+            Sleep(1000);
+            continue;
+        }
     }
+
+    printf("\nEntering game...");
+    Sleep(1200);
+
+    system("cls");
 
     int tierHP[5];
     CalculateBossHP(count,tierHP);
@@ -1025,6 +1057,9 @@ void PlayRPG(struct Flashcard *deck, int count)
     int selected = -1;
     char key;
 
+
+    GameScreen(currentTier, currentBossHP, currentBossMaxHP, playerHP, playerMaxHP, score, shield, randomMonster, deck[currentIdx].word, player, options);
+
     while (remaining > 0 && playerHP > 0)
     {
         currentIdx = rand() % remaining;
@@ -1034,7 +1069,7 @@ void PlayRPG(struct Flashcard *deck, int count)
 
         while(1)
             {
-                printf("Attack (1-4): ");
+                printf("\t\t\t\tAttack (1-4): ");
                 key = _getch();
                 if(key >= '1' && key <= '4')
                 {
@@ -1044,14 +1079,14 @@ void PlayRPG(struct Flashcard *deck, int count)
                 else
                 {
                     printf("[Error] Invalid input.");
-                    Sleep(1500);
+                    Sleep(1200);
                     GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomMonster,deck[currentIdx].word,player,options);
                 }
             }
 
         if (selected == correctIdx)
         {
-            printf("\n\n >>> CRITICAL HIT! <<<\n");
+            printf("\n\n\t\t\t\t >>> CRITICAL HIT! <<<");
             score++;
             currentBossHP--;
             remaining--;
@@ -1059,7 +1094,7 @@ void PlayRPG(struct Flashcard *deck, int count)
 
             if (currentBossHP <= 0 && remaining > 0)
             {
-                printf("\n *** LEVEL CLEARED! BOSS EVOLVED! ***\n");
+                printf("\n\n\t\t\t\t *** LEVEL CLEARED! BOSS EVOLVED! ***");
                 Sleep(1200);
                 RandomEvent(&playerHP,playerMaxHP,&score,&shield,currentTier,currentBossHP,currentBossMaxHP,randomMonster,player);
 
@@ -1072,18 +1107,17 @@ void PlayRPG(struct Flashcard *deck, int count)
         }
         else
         {
-            printf("\n\n >>> MISS! You took damage! <<<\n");
-            printf(" Correct: [%d] %s\n", correctIdx+1, deck[currentIdx].definition);
+            printf("\n\n\t\t\t\t >>> MISS! You took damage! <<<");
+            printf("\n\n\t\t\t\tCorrect: [%d] %s", correctIdx+1, deck[currentIdx].definition);
             if(shield > 0)
             {
-                printf("Your shield is broken");
+                printf("\n\t\t\t\tYour shield is broken");
                 shield--;
             }
-
             else playerHP--;
         }
 
-        Sleep(1200);
+        Sleep(1500);
     }
 
     //Result

@@ -149,7 +149,7 @@ void demon()
     printf("      |    |     |    |      \n"); // 9
     printf("     (vvvvvv)   (vvvvvv)     \n"); // 10
 };
-void tungtungsahur()
+void tungtungtungsahur()
 {
 printf("        AAAAAAAAAAAAA     \n");
 printf("       |  --     --  |    \n");
@@ -164,10 +164,7 @@ printf("    H   |           |  H  \n");
 printf("    H   |           |  H  \n");
 printf("   (H)  |           | (H) \n");
 printf("   !+!  |           |     \n");
-printf("   !+!  |           |     \n");
-printf("   !+!  |           |     \n");
 printf("   !+!  vvvvvvvvvvvvv     \n");
-printf("   !+!     ||   ||        \n");
 printf("   !+!     ||   ||        \n");
 printf("   !+!     ||   ||        \n");
 printf("   !+!     ||   ||        \n");
@@ -175,20 +172,20 @@ printf("   !=!  #####   #####            \n");
 
 }
 
-void dragon()
+void dragon()//70
 {
-    printf(" \033[91m");
-    printf("                       _____\n");
-    printf("   ___                 / _   \\\n");
-    printf("  /   \\____-----------/ (o)   \\_\n");
-    printf(" (  O   )                        \\____\n");
-    printf(" \\_____________                   \\  /\n");
-    printf("   VVVVVVV VV V\\                   \\/\n");
-    printf("  (AAAAAAAAAAA__A_/               |\n");
-    printf("   \\______________//_              \\_______\n");
-    printf("                     \\___           \\     /\n");
-    printf("                         |           \\   /\n");
-    printf("                        /             \\/\n");
+printf("     |  (  \\ ( \\                                    _____             \n");
+printf("    \\ \\  `  `   )              ___                 / _   \\           \n");
+printf(" (_`   \\+   . x  ( .          /   \\____-----------/ (o)   \\_          \n");
+printf("- .               \\+  ;      (  O                           \\____      \n");
+printf("                         )    \\_____________  `              \\  /      \n");
+printf("(__               +- .( -'.-  _  VVVVVVV VV V\\                \\/       \n");
+printf("(_____           ._._: <_  _  (--  _AAAAAAA__A_/              |          \n");
+printf("  .   /./.+-  . .- /  +  .     \\______________//_              \\_______\n");
+printf("  (__' /x  / x _/ (                              \\___'          \\     /\n");
+printf(" , x  ( '  . / .                                     |           \\   /  \n");
+printf("    / /                                              /             \\/   \n");
+
 }
 int main()
 {
@@ -215,6 +212,6 @@ int main()
     printf("\n");
     trex();
     printf("\n");
-    tungtungsahur();
+    tungtungtungsahur();
    return 0;
 }
