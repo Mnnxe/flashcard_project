@@ -1,0 +1,227 @@
+void intro() {
+    int i,j;
+    char col_1[500]  = {"\n\t  ========================================================================================================================\n"};
+    //char col_18[500] = {"\t||                                                                                                                         ||\n"};
+    char col_2[500]  = {"\t||                                                                                                                         ||\n"};
+    char col_3[500]  = {"\t||          ########  ########    #######   ##     ##    ##     ##   #######   ##  ##  ##     #######   ##     ##          ||\n"};
+    char col_4[500]  = {"\t||          ##         ##    ##  ##     ##  #### ####    ###    ##  ##     ##  ##  ##  ##    ##     ##  ###    ##          ||\n"};
+    char col_5[500]  = {"\t||          ##         ##    ##  ##     ##  ## ### ##    ## #   ##  ##     ##  ##  ##  ##    ##     ##  ## #   ##          ||\n"};
+    char col_6[500]  = {"\t||          #######    ########  ##     ##  ##     ##    ##  #  ##  ##     ##  ##  ##  ##    ##     ##  ##  #  ##          ||\n"};
+    char col_7[500]  = {"\t||          ##         ##  ##    ##     ##  ##     ##    ##   # ##  ##     ##  ##  ##  ##    ##     ##  ##   # ##          ||\n"};
+    char col_8[500]  = {"\t||          ##         ##   ##   ##     ##  ##     ##    ##    ###  ##     ##  ##  ##  ##    ##     ##  ##    ###          ||\n"};
+    char col_9[500]  = {"\t||          ##         ##    ##   ######    ##     ##    ##     ##   #######   ##########     #######   ##     ##          ||\n"};
+    char col_10[500] = {"\t||                                                                                                                         ||\n"};
+    char col_11[500] = {"\t||   ##  ########   ####       ######     ##     ##  ########  ##  ##  ##    ########     ######   ##  ##  ##  ##     ##   ||\n"};
+    char col_12[500] = {"\t||   ##     ##    ##    ##    ##    ##    ###    ##  ##        ##  ##  ##    ##     ##   ##    ##  ##  ##  ##  ###    ##   ||\n"};
+    char col_13[500] = {"\t||   ##     ##    ##          ##    ##    ## #   ##  ##        ##  ##  ##    ##      ##  ##    ##  ##  ##  ##  ## #   ##   ||\n"};
+    char col_14[500] = {"\t||   ##     ##     ######     ########    ##  #  ##  ########  ##  ##  ##    ##      ##  ########  ##  ##  ##  ##  #  ##   ||\n"};
+    char col_15[500] = {"\t||   ##     ##          ##    ##    ##    ##   # ##  ##        ##  ##  ##    ##      ##  ##    ##  ##  ##  ##  ##   # ##   ||\n"};
+    char col_16[500] = {"\t||   ##     ##    ##    ##    ##    ##    ##    ###  ##        ##  ##  ##    ##     ##   ##    ##  ##  ##  ##  ##    ###   ||\n"};
+    char col_17[500] = {"\t||   ##     ##      ####      ##    ##    ##     ##  ########  ##########    #######     ##    ##  ##########  ##     ##   ||\n"};
+    char col_18[500] = {"\t||                                                                                                                         ||\n"};
+    char col_19[500] = {"\t||                                                                                                                         ||\n"};
+    char col_20[500] = {"\t||                              --------------------- RPG FLASHCARD GAME ---------------------                             ||\n"};
+    char col_21[500] = {"\t||                                                                                                                         ||\n"};
+    char col_22[500] = {"\t||                                                                                                                         ||\n"};
+    char col_23[500] = {"\t||                                                                                                                         ||\n"};
+    char col_24[500] = {"\t||                                                                                                                         ||\n"};
+    char col_25[500] = {"\t||                                           >> PRESS ENTER TO START A NEW DAWN <<                                         ||\n"};
+    char col_26[500] = {"\t||                                                                                                                         ||\n"};
+    char col_27[500] = {"\t||                                                                                                                         ||\n"};
+    char col_28[500] = {"\t   =======================================================================================================================\n"};
+
+
+    for(i=0 ; i<strlen(col_1); i++) {
+        //delay(0.05);
+        printf("%c",col_1[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_2); i++) {
+        //delay(0.05);
+        printf("%c",col_2[i]);
+
+    }
+    for(i=0 ; i<strlen(col_2); i++) {
+        //delay(0.05);
+        printf("%c",col_2[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_3); i++) {
+        //delay(0.05);
+        printf("%c",col_3[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_4); i++) {
+        //delay(0.05);
+        printf("%c",col_4[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_5); i++) {
+        //delay(0.05);
+        printf("%c",col_5[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_6); i++) {
+        //delay(0.05);
+        printf("%c",col_6[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_7); i++) {
+        //delay(0.05);
+        printf("%c",col_7[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_8); i++) {
+        //delay(0.05);
+        printf("%c",col_8[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_9); i++) {
+        //delay(0.05);
+        printf("%c",col_9[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_10); i++) {
+        //delay(0.025);
+        printf("%c",col_10[i]);
+
+    }
+    for(i=0 ; i<strlen(col_10); i++) {
+        //delay(0.025);
+        printf("%c",col_10[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_11); i++) {
+        //delay(0.05);
+        printf("%c",col_11[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_12); i++) {
+        //delay(0.05);
+        printf("%c",col_12[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_13); i++) {
+        //delay(0.05);
+        printf("%c",col_13[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_14); i++) {
+        //delay(0.05);
+        printf("%c",col_14[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_15); i++) {
+        //delay(0.05);
+        printf("%c",col_15[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_16); i++) {
+        //delay(0.05);
+        printf("%c",col_16[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_17); i++) {
+        //delay(0.05);
+        printf("%c",col_17[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_18); i++) {
+        //delay(0.025);
+        printf("%c",col_18[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_19); i++) {
+        //delay(0.05);
+        printf("%c",col_19[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_20); i++) {
+        //delay(0.05);
+        printf("%c",col_20[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_21); i++) {
+        //delay(0.05);
+        printf("%c",col_21[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_22); i++) {
+        //delay(0.05);
+        printf("%c",col_22[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_23); i++) {
+        //delay(0.05);
+        printf("%c",col_23[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_24); i++) {
+        //delay(0.05);
+        printf("%c",col_24[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_25); i++) {
+        //delay(0.05);
+        printf("%c",col_25[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_26); i++) {
+        //delay(0.05);
+        printf("%c",col_26[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_27); i++) {
+        //delay(0.05);
+        printf("%c",col_27[i]);
+
+    }
+
+    for(i=0 ; i<strlen(col_28); i++) {
+        //delay(0.05);
+        printf("%c",col_28[i]);
+
+    }
+
+}
+
+void main()
+{
+    intro();
+    char co = _getch();
+
+    if(co=='\r')
+    {
+        system("cls");
+    }
+
+    main_menu();
+
+    return 0;
+}
