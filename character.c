@@ -94,11 +94,33 @@ printf("     H <<<<<<<)  (>>>>>>>>        \n");
 
 
 printf(" \33[0m");
-printf("                      __    \n");
-printf("                      / _)  \n");
-printf("             _/\\/\\/\\_/ / \n");
-printf("           _|         /     \n");
-printf("         _|  (| )   (|      \n");
-printf("        /__.-'|_|--|_|      \n");
+printf("                      __\n");
+printf("                      / _)\n");
+printf("             _/\\/\\/\\_/ /\n");
+printf("           _|         /\n");
+printf("         _|  (| )   (|\n");
+printf("        /__.-'|_|--|_|\n");
+
+printf("        AAAAAAAAAAA                \n");
+printf("       |           |    \n");
+printf("       |   8    8  |     \n");
+printf("       |  808  808 |     \n");
+printf("       |   8    8  |     \n");
+printf("    :::|           |:::     \n");
+printf("    H  |      3    |  H   \n");
+printf("    H  |           |  H   \n");
+printf("    H  |           |  H   \n");
+printf("    H  |           |  H   \n");
+printf("    H  |           |  H   \n");
+printf("   (H) |           | (H)   \n");
+printf("   !+! |           |     \n");
+printf("   !+! |           |     \n");
+printf("   !+! |           |     \n");
+printf("   !+!  vvvvvvvvvVV              \n");
+printf("   !+!    ||   ||          \n");
+printf("   !+!    ||   ||          \n");
+printf("   !+!    ||   ||          \n");
+printf("   !+!    ||   ||          \n");
+printf("   !=! #####   #####            \n");
 return 0;
 }
