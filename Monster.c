@@ -45,11 +45,10 @@ void archer()
     printf("        ***                    \n");//1
     printf("       ccccc                 \n");//2
     printf("      ccccccc                \n");//3
-    printf("     HHHHHHHHHH               \n");//4
-    printf("   HH|\\__ __/|HH   |))       \n");//5
-    printf("   Hq|  $  $  |pH  | ))       \n");//6
-    printf("   HH\\    3  /HH   |  ))     \n");//7
-    printf("   HH |_____| HH   |   ))     \n");//8
+    printf("     HHHHHHHHHH    |))          \n");//4
+    printf("   HH|\\__ __/|HH   | ))       \n");//5
+    printf("   Hq|  $  $  |pH  |  ))       \n");//6
+    printf("   HH|________|HH  |   ))     \n");//7
     printf("     ===   ===     |    ))    \n");//9
     printf(" o>> II     II<<<<<<(|))))\n");//10
     printf(" V   II     II     |    ))     \n");//11
@@ -62,15 +61,15 @@ void archer()
 void dino()
 {
     printf(" \33[0m");
-    printf(" __                  \n");//1
-    printf(" (_ \\               \n");//2
-    printf("   \\ \\            \n");//4
-    printf("    \\ \\_/\\/\\/\\/\\_  \n");//3
-    printf("     \\           |_    \n");//5
-    printf("      \\            |_    \n");//6
-    printf("       |             |_    \n");//7
-    printf("       | |)  (| |)     \\\n");//8
-    printf("       |_|----|_|'--\\___\\");//9
+    printf(" ___                  \n");//1
+    printf(" (_  \\               \n");//2
+    printf("   \\  \\            \n");//4
+    printf("    \\  \\_/\\/\\/\\/\\_  \n");//3
+    printf("     \\            |_    \n");//5
+    printf("      \\             |_    \n");//6
+    printf("       |              |_    \n");//7
+    printf("       | |)   (| |)     \\\n");//8
+    printf("       |_|-----|_|'--\\___\\");//9
 }
 void trex()
 {
@@ -168,11 +167,11 @@ printf("   !+!  vvvvvvvvvvvvv     \n");
 printf("   !+!     ||   ||        \n");
 printf("   !+!     ||   ||        \n");
 printf("   !+!     ||   ||        \n");
-printf("   !=!  #####   #####            \n");
+printf("   !=!  #####   #####     \n");
 
 }
 
-void dragon()//70
+void dragon()//73
 {
 printf("     |  (  \\ ( \\                                    _____             \n");
 printf("    \\ \\  `  `   )              ___                 / _   \\           \n");
