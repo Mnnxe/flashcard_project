@@ -149,6 +149,31 @@ void demon()
     printf("      |    |     |    |      \n"); // 9
     printf("     (vvvvvv)   (vvvvvv)     \n"); // 10
 };
+void tungtungsahur()
+{
+printf("        AAAAAAAAAAAAA     \n");
+printf("       |  --     --  |    \n");
+printf("       |   8     8   |    \n");
+printf("       |  808   808  |    \n");
+printf("       \\   8  |  8   /     \n");
+printf("    ::: |     |     |:::  \n");
+printf("    H   |    ===    |  H  \n");
+printf("    H   |           |  H  \n");
+printf("    H   |           |  H  \n");
+printf("    H   |           |  H  \n");
+printf("    H   |           |  H  \n");
+printf("   (H)  |           | (H) \n");
+printf("   !+!  |           |     \n");
+printf("   !+!  |           |     \n");
+printf("   !+!  |           |     \n");
+printf("   !+!  vvvvvvvvvvvvv     \n");
+printf("   !+!     ||   ||        \n");
+printf("   !+!     ||   ||        \n");
+printf("   !+!     ||   ||        \n");
+printf("   !+!     ||   ||        \n");
+printf("   !=!  #####   #####            \n");
+
+}
 
 void dragon()
 {
@@ -190,5 +215,6 @@ int main()
     printf("\n");
     trex();
     printf("\n");
+    tungtungsahur();
    return 0;
 }

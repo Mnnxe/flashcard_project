@@ -489,19 +489,22 @@ void RunSetMenu()
                 Sleep(1000);
         }
     }while (choice != 'x');
+
 }
 
 int main()
 {
-     char choice;
-    int line;
+    char choice;
+    int lineNum;
     char setName[100];
+    char confirm;
 
     do
     {
         system("cls");
         printf("[1] Start\n");
-        printf("[2] Manage Sets\n");
+        printf("[2] Learn");
+        printf("[3] Manage\n");
         printf("[X] Close Program\n");
 
         choice = _getch();
@@ -511,20 +514,61 @@ int main()
         switch(choice)
         {
             case '1':
-                system("cls");
-                //SetList();
-                printf("Which set you want to play: ");
-                //scanf("%d",&line);
-                //GetLine(line,"set_list",setName);
-                //StartGame(setName);
-                break;
+                while(1)
+                {
+                    system("cls");
+                    printf("==========Which set you want to play?===========\n");
+                    SetList();
 
-            case '2': RunSetMenu(); break;
+                    printf("\nEnter line number(0 to cancel): ");
+                    if(scanf("%d",&lineNum)!=1)
+                    {
+                        clearBuffer();
+                        printf("\n Invalid input! Please try again.\n");
+                        Sleep(1000);
+                        continue;
+                    }
+                    clearBuffer();
+                    if(lineNum == 0)
+                    {
+                        printf(">Canceled<");
+                        Sleep(1000);
+                        break;
+                    }
+                    if(GetLine(lineNum,"set_list",setName) == 1)
+
+                    {
+                        printf(">> %s is selected, You want to continue?(y/n): ",setName);
+                        confirm = _getch();
+                        printf("%c\n",confirm);
+                        if(confirm == 'y')
+                        {
+                            //StartGame(setName);
+                            break;
+                        }
+                        else
+                        {
+                            printf(">Canceled<");
+                            fflush(stdout);
+                            Sleep(1000);
+                        }
+                        //break;
+                    }
+                    else
+                    {
+                        printf("[Error]: Set number %d does not exist\n",lineNum);
+                        Sleep(1200);
+                    }
+                }
+                break;
+            case '2': printf("Learning\n");break
+
+            case '3': RunSetMenu(); break;
 
             case 'x': return 0;
 
             default :
-                printf("\n Invalid choice! Please try again.\n");
+                printf("\n Invalid input! Please try again.\n");
                 Sleep(1000);
         }
     }while(choice != 'x');
