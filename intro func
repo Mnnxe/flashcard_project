@@ -1,0 +1,154 @@
+void start_story()
+{
+    char c;
+    int i;
+    system("cls");
+    char st0[500] = {"-----------------------------------------------------------------------------------------------------------\n"};
+    char st1[500] = {"A hundred years have passed since the Dawnfall, the day the sun refused to rise.\n"};
+
+    char st2[500] = {"Shadows stretched across the lands, and fear became constant.\n"};
+    char st3[500] = {"Cities crumbled, forests grew silent, and even the bravest forgot light.\n"};
+    char st4[500] = {"Hope became a whispered legend, barely remembered by those who survived.\n"};
+
+    char st5[500] = {"The world believes the dawn is gone forever, that light will never return and the night will never end.\n"};
+
+    char st6[500] = {"But tonight, a faint spark stirs — not in the sky, but within you.\n"};
+    char st7[500] = {"A light long thought lost awakens, calling you to rise against the shadows.\n"};
+
+    char st8[500] = {"Because from now on…"};
+    char st9[500] = {" it’s a new dawn.\n"};
+    char st10[500] = {"The darkness trembles, "};
+    char st11[500] = {"and the first step of your journey begins here.\n"};
+
+
+    for(i=0; i<strlen(st0); i++)
+    {
+        c = st0[i];
+        printf("%c",c);
+        /*if(c=='.') Sleep(800);
+        else Sleep(20);*/
+
+    }
+
+    for(i=0; i<strlen(st1); i++)
+    {
+        c = st1[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+
+    }
+    printf("\n");
+
+    for(i=0; i<strlen(st2); i++)
+    {
+        c = st2[i];
+        printf("%c",c);
+        if(c=='.') Sleep(500);
+        else Sleep(20);
+
+    }
+
+    for(i=0; i<strlen(st3); i++)
+    {
+        c = st3[i];
+        printf("%c",c);
+        if(c=='.') Sleep(500);
+        else Sleep(20);
+
+    }
+
+    for(i=0; i<strlen(st4); i++)
+    {
+        c = st4[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+    }
+    printf("\n");
+
+    for(i=0; i<strlen(st5); i++)
+    {
+        c = st5[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+    }
+    printf("\n");
+
+    for(i=0; i<strlen(st6); i++)
+    {
+        c = st6[i];
+        printf("%c",c);
+        if(c==',') Sleep(400);
+        if(c=='.') Sleep(500);
+        else Sleep(20);
+
+    }
+
+    for(i=0; i<strlen(st7); i++)
+    {
+        c = st7[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+    }
+    printf("\n");
+
+    for(i=0; i<strlen(st8); i++)
+    {
+        c = st8[i];
+        printf("\033[1m%c\033[0m",c);
+        //printf("",c);
+        Sleep(20);
+    }
+    Sleep(1500);
+
+    for(i=0; i<strlen(st9); i++)
+    {
+        c = st9[i];
+        printf("\033[31m%c\033[0m",c);
+        if(c=='.') Sleep(1000);
+        else Sleep(20);
+
+    }
+
+    for(i=0; i<strlen(st10); i++)
+    {
+        c = st10[i];
+        printf("%c",c);
+        Sleep(20);
+
+    }
+    Sleep(1000);
+
+    for(i=0; i<strlen(st11); i++)
+    {
+        c = st11[i];
+        printf("\033[4m%c\033[0m",c);
+        //if(c=='.') Sleep(1000);
+        Sleep(20);
+
+    }
+
+    for(i=0; i<strlen(st0); i++)
+    {
+        c = st0[i];
+        printf("%c",c);
+        /*if(c=='.') Sleep(800);
+        else Sleep(20);*/
+
+    }
+
+    Sleep(2000);
+    printf("\n");
+
+    printf("--- Press ENTER to continue ---");
+    char co = _getch();
+
+    if(co=='\r')
+    {
+        system("cls");
+        main_menu();
+    }
+}
