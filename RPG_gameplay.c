@@ -153,7 +153,7 @@ void start_story()
     char c;
     int i;
     system("cls");
-    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n"};
+    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
     char st1[500] = {"\tA hundred years have passed since the Dawnfall, the day the sun refused to rise.\n"};
 
     char st2[500] = {"\tShadows stretched across the lands, and fear became constant.\n"};
@@ -308,7 +308,7 @@ void final_cut()
     int i;
 
     system("cls");
-    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n"};
+    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
     char st1[500] = {"\tAs the final shadow collapses, darkness shatters and disperses into the air.\n"};
     char st2[500] = {"\tA warm, golden light rises from where the enemy fell, spreading across the land.\n"};
 
@@ -405,7 +405,7 @@ void final_loss()
     char c;
     int i;
 
-    char st0[500] = {"-------------------------------------------------------------------------------------------------------------------\n"};
+    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
     char st1[500] = {"\tYour final strike fades inches from the shadow’s heart.\n"};
     char st2[500] = {"\tThe world holds its breath as your light collapses in its grasp.\n"};
     char st3[500] = {"\tSo close... "};
@@ -786,10 +786,8 @@ void printCharacter(Character* p, Character* m)
             printf("%s", p->art[line]);
             printf("               ");
             printf("%s", m->art[line]);
-
             printf("\n");
     }
-        printf("\n");
 }
 
 void Monster(int currentTier,Character *player,int randomMonster)
@@ -805,19 +803,19 @@ void Monster(int currentTier,Character *player,int randomMonster)
         {
             if(randomMonster == 2)      printCharacter(player,&e_empty);
             else if(randomMonster == 0) printCharacter(player,&m_slime);
-            else                   printCharacter(player,&m_fish);
+            else                        printCharacter(player,&m_fish);
         }
         else if(currentTier == 3)
         {
             if(randomMonster == 2)      printCharacter(player,&e_empty);
             else if(randomMonster == 0) printCharacter(player,&m_demon);
-            else                   printCharacter(player,&m_trex);
+            else                        printCharacter(player,&m_trex);
         }
         else
         {
             if(randomMonster == 2)      printCharacter(player,&e_empty);
-            else if(randomMonster == 0)printCharacter(player,&m_dragon);
-            else                  printCharacter(player,&m_sahur);
+            else if(randomMonster == 0) printCharacter(player,&m_dragon);
+            else                        printCharacter(player,&m_sahur);
 
         }
 }
@@ -844,13 +842,12 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     system("cls");
 
-    printf("===================================================================================================================\n");
-
-    if (currentTier == 4) printf("%40s",">> FINAL BOSS << ");
+    printf("========================================================================================================================\n");
+    if (currentTier == 4) printf("%50s",">> FINAL BOSS <<       ");
     else printf("%40s %d / 4     ","PHASE", currentTier);
 
     printf("|      SCORE: %d\n", score);
-    printf("===================================================================================================================\n");
+    printf("========================================================================================================================\n");
 
     printf("%18s","YOU: ");
     for(h=0; h < playerMaxHP; h++)
@@ -882,7 +879,7 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     Monster(currentTier,player,randomMonster);
 
-    printf("-------------------------------------------------------------------------------------------------------------------\n\n");
+     printf("\n---------------------------------------------------------------------------------------------------------------------\n");
 
     if(word != NULL)
     {
@@ -978,9 +975,9 @@ void PlayRPG(struct Flashcard *deck, int count)
     while(1)
     {
         system("cls");
-        printf("==============================================================================================\n");
-        printf("%55s\n","Choose your character");
-        printf("==============================================================================================\n\n");
+        printf("========================================================================================================================\n");
+        printf("%60s\n","CHOOSE YOUR CHARACTER");
+        printf("========================================================================================================================\n\n");
         printf("   [1] Swordsman\n");
         printf("       :Trained with Luminsteel, the last blade forged from captured sunlight.\n");
         printf("        Your village fell to shadows, leaving only you to carry its hope.\n");
@@ -1082,7 +1079,7 @@ void PlayRPG(struct Flashcard *deck, int count)
                 }
                 else if(key == 'x')
                 {
-                    printf("\nDo you want to exit game?(y/n): ");
+                    printf("\n\t\t\t\tDo you want to exit game?(y/n): ");
                     exit = _getch();
                     exit = tolower(exit);
                     if(exit == 'y') return;
@@ -1180,13 +1177,13 @@ void StartGame(char *setName)
 
     if (totalCards == 0)
     {
-        printf("[Error] No cards found!\n");
+        printf("[!] No cards found!\n");
         Sleep(2000);
         return;
     }
     else if(totalCards < 4)
     {
-        printf("[Error] Must have at least 4 card in the set!\n");
+        printf("[!] Must have at least 4 card in the set!\n");
         Sleep(2000);
         return;
     }
