@@ -1,0 +1,84 @@
+void final_loss()
+{
+    char c;
+    int i;
+
+    char st0[500] = {"-------------------------------------------------------------------------------\n"};
+    char st1[500] = {"Your final strike fades inches from the shadow’s heart.\n"};
+    char st2[500] = {"The world holds its breath as your light collapses in its grasp.\n"};
+
+    char st3[500] = {"So close… "};
+    char st4[500] = {"the dawn was almost yours.\n"};
+
+    for(i=0; i<strlen(st0); i++)
+    {
+        c = st0[i];
+        printf("%c",c);
+        /*if(c=='.') Sleep(800);
+        else Sleep(20);*/
+
+    }
+
+    for(i=0; i<strlen(st1); i++)
+    {
+        c = st1[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+    }
+
+    for(i=0; i<strlen(st2); i++)
+    {
+        c = st2[i];
+        printf("%c",c);
+        if(c=='.') Sleep(800);
+        else Sleep(20);
+    }
+    printf("\n");
+
+    for(i=0; i<strlen(st3); i++)
+    {
+        c = st3[i];
+        printf("\033[1m%c\033[0m",c);
+        //printf("",c);
+        Sleep(20);
+    }
+    Sleep(1500);
+
+    for(i=0; i<strlen(st4); i++)
+    {
+        c = st4[i];
+        printf("\033[1m%c\033[0m",c);
+        Sleep(20);
+    }
+
+    for(i=0; i<strlen(st0); i++)
+    {
+        c = st0[i];
+        printf("%c",c);
+        /*if(c=='.') Sleep(800);
+        else Sleep(20);*/
+
+    }
+
+    Sleep(2000);
+    printf("\n");
+
+    printf("   --- Press X to exit ---\n");
+    printf("--- Press A to play again ---\n");
+
+    char co = _getch();
+    co = getlower(co);
+
+    if(co=='x')//quit the program
+    {
+        system("cls");
+        return;
+    }
+
+    if(co=='a')
+    {
+        system("cls");
+        main_menu();
+    }
+}
