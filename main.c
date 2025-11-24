@@ -181,7 +181,7 @@ void EditSetTitle(char *old_title)
     rename("temp_file.txt","set_list.txt");
     rename(old_file,new_file);
 
-    printf("\n\t\t\tName changed successfully.\n ");
+    printf("\n\t\t\tTitle changed successfully.\n ");
     Sleep(1000);
 }
 
