@@ -3,7 +3,7 @@
 #include<time.h>
 #include<string.h>
 
-typedef struct
+/*typedef struct
 {
     const char** art;
 } Character;
@@ -20,8 +20,8 @@ Character m_demon;
 Character m_sahur;
 Character m_dragon;
 Character e_empty;
-
-const char *squid[] =
+*/
+const char* squid[] =
 {
     "\t\t                                                          ",//16
     "\t\t                                                          ",//17
@@ -158,7 +158,7 @@ const char* demon[] =
     "\t\t  (vvvvvv)   (vvvvvv)                                        "    // 10
 };
 
-const char *dragon[] =
+const char* dragon[] =
 {
     "",//
     "",//
@@ -297,7 +297,7 @@ const char* empty[] =
     " ",//19
 
 };
-void CharacterData()
+/*void CharacterData()
 {
     e_empty.art = empty;
     c_swordsman.art = swordsman;
@@ -312,15 +312,15 @@ void CharacterData()
     m_sahur.art = sahur;
     m_dragon.art = dragon;
 }
-
-void printCharacter(Character* p, Character* m)
+*/
+void printCharacter(const char **p,const char **m)
 {
     for(int line = 0; line < 19; line++)
     {
 
-            printf("%s", p->art[line]);
+            printf("%s", p[line]);
             printf("     ");
-            printf("%s", m->art[line]);
+            printf("%s", m[line]);
 
             printf("\n");
     }
@@ -330,11 +330,11 @@ void printCharacter(Character* p, Character* m)
 
 int main()
 {   int choice;
-    int randomIndex;
-    srand(time(NULL));
-    Character* player;
+    const char **player;
+    const char **enemy;
+    //Character* player;
 
-    CharacterData();
+    //CharacterData();
 
     printf("Choose your character:\n");
     printf("1. Swordsman\n");
@@ -342,10 +342,10 @@ int main()
     printf("Select: ");
     scanf("%d", &choice);
 
-    if(choice == 2) player = &c_sorcerer;
-    else            player = &c_swordsman;
-
-    printCharacter(player, &m_slime);
+    if(choice == 2) player = sorcerer;
+    else            player = swordsman;
+    enemy = slime;
+    printCharacter(player,enemy);
 
     return 0;
 }

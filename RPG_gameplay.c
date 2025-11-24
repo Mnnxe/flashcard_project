@@ -146,344 +146,53 @@ void SwapCards(struct Flashcard *a, struct Flashcard *b) {
 
 //RPG MODE
 
-//story
 //Story
-void start_story()
+void readtext(char *story)
 {
-    char c;
-    int i;
-    system("cls");
-    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
-    char st1[500] = {"\tA hundred years have passed since the Dawnfall, the day the sun refused to rise.\n"};
+    char file_name[50];
+    char ch;
 
-    char st2[500] = {"\tShadows stretched across the lands, and fear became constant.\n"};
-    char st3[500] = {"\tCities crumbled, forests grew silent, and even the bravest forgot light.\n"};
-    char st4[500] = {"\tHope became a whispered legend, barely remembered by those who survived.\n"};
+    sprintf(file_name,"%s.txt",story);
 
-    char st5[500] = {"\tThe world believes the dawn is gone forever, that light will never return and the night will never end.\n"};
-
-    char st6[500] = {"\tBut tonight, a faint spark stirs - not in the sky, but within you.\n"};
-    char st7[500] = {"\tA light long thought lost awakens, calling you to rise against the shadows.\n"};
-
-    char st8[500] = {"\tBecause from now on..."};
-    char st9[500] = {" it's a new dawn.\n"};
-    char st10[500] = {"\tThe darkness trembles, "};
-    char st11[500] = {"and the first step of your journey begins here.\n"};
-
-
-    for(i=0; i<strlen(st0); i++)
+    FILE *fp;
+    fp = fopen(file_name,"r");
+    if(fp == NULL)
     {
-        c = st0[i];
-        printf("%c",c);
-        /*if(c=='.') Sleep(800);
-        else Sleep(20);*/
-
+        printf("Can't Open File\n");
+        return;
     }
 
-    for(i=0; i<strlen(st1); i++)
-    {
-        c = st1[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
+    printf("----------------------------------------------------------------------------------------------------------------------\n");
+
+    while(1)
+    {   fscanf(fp,"%c",&ch);
+        if(ch == 'NULL') break;
+        else
+        {
+
+            if(ch == '_') printf(" ");
+            else if(ch == '*') printf("\n");
+            else if(ch == '>') printf("\t");
+            else if(ch == '&') printf("\033[0m");
+            else if(ch == '#') printf("\033[91m");
+            else if(ch == '=') printf("\033[94m");
+            else if(ch == '%') printf("\033[1;92m");
+            else if(ch == '|') printf("\033[4m");
+            else if(ch == '+') printf("\033[1m");
+            else if(ch == '^') Sleep(400);
+            else if(ch == '/') break;
+            else
+            {
+                printf("%c",ch);
+                Sleep(20);
+            }
+        }
 
     }
-    printf("\n");
-
-    for(i=0; i<strlen(st2); i++)
-    {
-        c = st2[i];
-        printf("%c",c);
-        if(c=='.') Sleep(500);
-        else Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st3); i++)
-    {
-        c = st3[i];
-        printf("%c",c);
-        if(c=='.') Sleep(500);
-        else Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st4); i++)
-    {
-        c = st4[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-    }
-    printf("\n");
-
-    for(i=0; i<strlen(st5); i++)
-    {
-        c = st5[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-    }
-    printf("\n");
-
-    for(i=0; i<strlen(st6); i++)
-    {
-        c = st6[i];
-        printf("%c",c);
-        if(c==',') Sleep(400);
-        if(c=='.') Sleep(500);
-        else Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st7); i++)
-    {
-        c = st7[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-    }
-    printf("\n");
-
-    for(i=0; i<strlen(st8); i++)
-    {
-        c = st8[i];
-        printf("\033[1m%c\033[0m",c);
-        //printf("",c);
-        Sleep(20);
-    }
-    Sleep(1500);
-
-    for(i=0; i<strlen(st9); i++)
-    {
-        c = st9[i];
-        printf("\033[31m%c\033[0m",c);
-        if(c=='.') Sleep(1000);
-        else Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st10); i++)
-    {
-        c = st10[i];
-        printf("%c",c);
-        Sleep(20);
-
-    }
-    Sleep(1000);
-
-    for(i=0; i<strlen(st11); i++)
-    {
-        c = st11[i];
-        printf("\033[4m%c\033[0m",c);
-        //if(c=='.') Sleep(1000);
-        Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st0); i++)
-    {
-        c = st0[i];
-        printf("%c",c);
-        /*if(c=='.') Sleep(800);
-        else Sleep(20);*/
-
-    }
-
-    Sleep(2000);
-    printf("\n");
-
-    printf("\t--- Press ENTER to continue ---");
-    char co = _getch();
-
-    if(co=='\r')
-    {
-        system("cls");
-    }
-}
-
-void final_cut()
-{
-    char c;
-    int i;
-
-    system("cls");
-    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
-    char st1[500] = {"\tAs the final shadow collapses, darkness shatters and disperses into the air.\n"};
-    char st2[500] = {"\tA warm, golden light rises from where the enemy fell, spreading across the land.\n"};
-
-    char st3[500] = {"\tYou step forward, bathed in the glow of a new dawn, feeling hope return to every corner of the world.\n"};
-
-    char st4[500] = {"\tAnd now,"};
-    char st5[500] = {" the people look to the horizon with renewed hope,\n"};
-
-    char st6[500] = {"\tas from now on... "};
-    char st7[500] = {"it's a new dawn.\n"};
-
-    for(i=0; i<strlen(st0); i++)
-    {
-        c = st0[i];
-        printf("%c",c);
-
-    }
-
-    for(i=0; i<strlen(st1); i++)
-    {
-        c = st1[i];
-        printf("%c",c);
-        if(c=='.') Sleep(500);
-        else Sleep(20);
-
-    }
-
-    for(i=0; i<strlen(st2); i++)
-    {
-        c = st2[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-
-    }
-    printf("\n");
-
-    for(i=0; i<strlen(st3); i++)
-    {
-        c = st3[i];
-        printf("%c",c);
-        if(c==',') Sleep(400);
-        if(c=='.') Sleep(500);
-        else Sleep(20);
-    }
-    Sleep(1000);
-    printf("\n");
-
-    for(i=0; i<strlen(st4); i++)
-    {
-        c = st4[i];
-        printf("\033[34m%c\033[0m",c);
-        Sleep(20);
-    }
-    Sleep(800);
-
-    for(i=0; i<strlen(st5); i++)
-    {
-        c = st5[i];
-        printf("\033[34m%c\033[0m",c);
-        Sleep(20);
-    }
-    Sleep(1000);
-    printf("\n");
-
-    for(i=0; i<strlen(st6); i++)
-    {
-        c = st6[i];
-        printf("\033[1m%c\033[0m",c);
-        Sleep(20);
-    }
-    Sleep(1500);
-
-    for(i=0; i<strlen(st7); i++)
-    {
-        c = st7[i];
-        printf("\033[1;32m%c\033[0m",c);
-        if(c=='.') Sleep(1000);
-        else Sleep(20);
-    }
-
-    for(i=0; i<strlen(st0); i++)
-    {
-        c = st0[i];
-        printf("%c",c);
-    }
-
-    Sleep(2000);
-    printf("\n");
-}
-
-void final_loss()
-{
-    char c;
-    int i;
-
-    char st0[500] = {"----------------------------------------------------------------------------------------------------------------------\n"};
-    char st1[500] = {"\tYour final strike fades inches from the shadow’s heart.\n"};
-    char st2[500] = {"\tThe world holds its breath as your light collapses in its grasp.\n"};
-    char st3[500] = {"\tSo close... "};
-    char st4[500] = {"the dawn was almost yours.\n"};
-
-    for(i=0; i<strlen(st0); i++)
-    {
-        c = st0[i];
-        printf("%c",c);
-        /*if(c=='.') Sleep(800);
-        else Sleep(20);*/
-
-    }
-
-    for(i=0; i<strlen(st1); i++)
-    {
-        c = st1[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-    }
-
-    for(i=0; i<strlen(st2); i++)
-    {
-        c = st2[i];
-        printf("%c",c);
-        if(c=='.') Sleep(800);
-        else Sleep(20);
-    }
-    printf("\n");
-
-    for(i=0; i<strlen(st3); i++)
-    {
-        c = st3[i];
-        printf("\033[1m%c\033[0m",c);
-        //printf("",c);
-        Sleep(20);
-    }
-    Sleep(1500);
-
-    for(i=0; i<strlen(st4); i++)
-    {
-        c = st4[i];
-        printf("\033[1m%c\033[0m",c);
-        Sleep(20);
-    }
-
-    for(i=0; i<strlen(st0); i++)
-    {
-        c = st0[i];
-        printf("%c",c);
-        /*if(c=='.') Sleep(800);
-        else Sleep(20);*/
-
-    }
-
-    Sleep(2000);
-    printf("\n");
+    printf("\n----------------------------------------------------------------------------------------------------------------------\n");
 }
 
 //Character
-typedef struct
-{
-    const char** art;
-} Character;
-
-Character c_swordsman;
-Character c_sorcerer;
-Character c_archer;
-Character m_squid;
-Character m_dino;
-Character m_slime;
-Character m_fish;
-Character m_trex;
-Character m_demon;
-Character m_sahur;
-Character m_dragon;
-Character e_empty;
 
 const char *squid[] =
 {
@@ -740,84 +449,78 @@ const char* archer[] =
 
 const char* empty[] =
 {
-    " ",//1
-    " ",//2
-    " ",//3
-    " ",//4
-    " ",//5
-    " ",//6
-    " ",//7
-    " ",//8
-    " ",//9
-    " ",//10
-    " ",//11
-    " ",//12
-    " ",//13
-    " ",//14
-    " ",//15
-    " ",//16
-    " ",//17
-    " ",//18
-    " ",//19
+    "                            ",//1
+    "                            ",//2
+    "                            ",//3
+    "                            ",//4
+    "                            ",//5
+    "                            ",//6
+    "                            ",//7
+    "                            ",//8
+    "                            ",//9
+    "                            ",//10
+    "                            ",//11
+    "                            ",//12
+    "                            ",//13
+    "                            ",//14
+    "                            ",//15
+    "                            ",//16
+    "                            ",//17
+    "                            ",//18
+    "                            ",//19
 
 };
 
-void CharacterData()
-{
-    e_empty.art = empty;
-    c_swordsman.art = swordsman;
-    c_sorcerer.art = sorcerer;
-    c_archer.art = archer;
-    m_squid.art = squid;
-    m_dino.art = dino;
-    m_slime.art = slime;
-    m_fish.art = fish;
-    m_demon.art = demon;
-    m_trex.art = trex;
-    m_sahur.art = sahur;
-    m_dragon.art = dragon;
-}
-void printCharacter(Character* p, Character* m)
+
+void printCharacter(const char** p, const char** m)
 {
 
     for(int line = 0; line < 19; line++)
     {
-
-            printf("%s", p->art[line]);
-            printf("               ");
-            printf("%s", m->art[line]);
-            printf("\n");
+        printf("     ")
+        printf("%s", p[line]);
+        printf("               ");
+        printf("%s", m[line]);
+        printf("\n");
     }
 }
 
-void Monster(int currentTier,Character *player,int randomMonster)
+void Boss(int currentTier,const char** player,int randomBoss)
 {
+    const char** boss;
     //random boss
-        if(currentTier == 1)
-        {
-            if(randomMonster == 2)      printCharacter(player,&e_empty);
-            else if(randomMonster == 0) printCharacter(player,&m_squid);
-            else                        printCharacter(player,&m_dino);
-        }
-        else if(currentTier == 2)
-        {
-            if(randomMonster == 2)      printCharacter(player,&e_empty);
-            else if(randomMonster == 0) printCharacter(player,&m_slime);
-            else                        printCharacter(player,&m_fish);
-        }
-        else if(currentTier == 3)
-        {
-            if(randomMonster == 2)      printCharacter(player,&e_empty);
-            else if(randomMonster == 0) printCharacter(player,&m_demon);
-            else                        printCharacter(player,&m_trex);
-        }
+
+        if(randomBoss == 2) boss = empty;
+
         else
         {
-            if(randomMonster == 2)      printCharacter(player,&e_empty);
-            else if(randomMonster == 0) printCharacter(player,&m_dragon);
-            else                        printCharacter(player,&m_sahur);
+            if(currentTier == 1)
+            {
+                if(randomBoss == 0) boss = squid;
+                else                boss = dino;
+            }
 
+
+            else if(currentTier == 2)
+            {
+                if(randomBoss == 0) boss = slime;
+                else                boss = fish;
+            }
+            else if(currentTier == 3)
+            {
+                if(randomBoss == 0) boss = demon;
+                else                boss = trex;
+            }
+            else
+            {
+                if(randomBoss == 0) boss = dragon;
+                else                     boss = sahur;
+
+            }
         }
+
+
+        printCharacter(player,boss);
 }
 
 void CalculateBossHP(int count, int *tierHP)
@@ -835,7 +538,7 @@ void CalculateBossHP(int count, int *tierHP)
     if (tierHP[4] < 1) tierHP[4] = 1;
 }
 
-void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score,int shield,int randomMonster,char *word,Character *player,struct Flashcard *options)
+void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score,int shield,int randomBoss,char *word,const char** player,struct Flashcard *options)
 {
     int line,bars;
     int i,h;
@@ -843,8 +546,8 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
     system("cls");
 
     printf("========================================================================================================================\n");
-    if (currentTier == 4) printf("%50s",">> FINAL BOSS <<       ");
-    else printf("%40s %d / 4     ","PHASE", currentTier);
+    if (currentTier == 4) printf("%55s",">> FINAL BOSS <<       ");
+    else printf("%45s %d / 4     ","PHASE", currentTier);
 
     printf("|      SCORE: %d\n", score);
     printf("========================================================================================================================\n");
@@ -877,9 +580,9 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     printf("\n");
 
-    Monster(currentTier,player,randomMonster);
+    Boss(currentTier,player,randomBoss);
 
-     printf("\n---------------------------------------------------------------------------------------------------------------------\n");
+     printf("---------------------------------------------------------------------------------------------------------------------\n");
 
     if(word != NULL)
     {
@@ -893,17 +596,18 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
     printf("\n");
 }
 
-void EventScene(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score,int shield,int randomMonster,char *message,char *reward,Character *player)
+void EventScene(int currentTier,int currentBossHP,int currentBossMaxHP,int playerHP, int playerMaxHP,int score,int shield,int randomBoss,char *message,char *reward,const char** player)
 {
     system("cls");
-    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,2,NULL,player,NULL);
+    if(playerHP > 0) randomBoss = 2;
+    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomBoss,NULL,player,NULL);
     printf("\t\t\t\t%s\n\n", message);
     printf("\t\t\t\t%s\n\n", reward);
     printf("\t\t\t\tEnter any key to continue...");
     _getch();
 }
 
-void RandomEvent(int *playerHP, int playerMaxHP, int *score, int *shield, int currentTier, int currentBossHP, int currentBossMaxHP,int randomMonster,Character *player)
+void RandomEvent(int *playerHP, int playerMaxHP, int *score, int *shield, int currentTier, int currentBossHP, int currentBossMaxHP,int randomBoss,const char** player)
 {
     char message[100]= "Nothing here";
     char reward[100] = "Nothing here";
@@ -956,19 +660,15 @@ void RandomEvent(int *playerHP, int playerMaxHP, int *score, int *shield, int cu
         else strcpy(message,"Your Shield is full");
     }
 
-    EventScene(currentTier,currentBossHP,currentBossMaxHP,*playerHP,playerMaxHP,*score,*shield,randomMonster,message,reward,player);
+    EventScene(currentTier,currentBossHP,currentBossMaxHP,*playerHP,playerMaxHP,*score,*shield,randomBoss,message,reward,player);
 }
 
 void PlayRPG(struct Flashcard *deck, int count)
 {
 
-    CharacterData();
-
     int choice;
-    int randomMonster = rand() % 2;
-    Character* player;
-
-    //start_story();
+    int randomBoss = rand() % 2;
+    const char** player;
 
 
 
@@ -999,17 +699,17 @@ void PlayRPG(struct Flashcard *deck, int count)
 
         if(choice == 1)
         {
-            player = &c_swordsman;
+            player = swordsman;
             break;
         }
         else if(choice == 2)
         {
-            player = &c_sorcerer;
+            player = sorcerer;
             break;
         }
         else if(choice == 3)
         {
-            player = &c_archer;
+            player = archer;
             break;
         }
         else
@@ -1054,7 +754,7 @@ void PlayRPG(struct Flashcard *deck, int count)
     struct Flashcard options[4];
 
 
-    GameScreen(currentTier, currentBossHP, currentBossMaxHP, playerHP, playerMaxHP, score, shield, randomMonster, deck[currentIdx].word, player, options);
+    GameScreen(currentTier, currentBossHP, currentBossMaxHP, playerHP, playerMaxHP, score, shield, randomBoss, deck[currentIdx].word, player, options);
 
     while (remaining > 0 && playerHP > 0)
     {
@@ -1062,7 +762,7 @@ void PlayRPG(struct Flashcard *deck, int count)
         system("cls");
         currentIdx = rand() % remaining;
         GenerateOptions(deck, count, currentIdx, options, &correctIdx);
-        GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomMonster,deck[currentIdx].word,player,options);
+        GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomBoss,deck[currentIdx].word,player,options);
 
 
         while(1)
@@ -1083,13 +783,13 @@ void PlayRPG(struct Flashcard *deck, int count)
                     exit = _getch();
                     exit = tolower(exit);
                     if(exit == 'y') return;
-                    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomMonster,deck[currentIdx].word,player,options);
+                    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomBoss,deck[currentIdx].word,player,options);
                 }
                 else
                 {
                     printf("\n\t\t\t[!] Invalid input. Please try again");
                     Sleep(1200);
-                    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomMonster,deck[currentIdx].word,player,options);
+                    GameScreen(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomBoss,deck[currentIdx].word,player,options);
                 }
             }
 
@@ -1105,10 +805,10 @@ void PlayRPG(struct Flashcard *deck, int count)
             {
                 printf("\n\n\t\t\t\t *** LEVEL CLEARED! BOSS EVOLVED! ***");
                 Sleep(1200);
-                RandomEvent(&playerHP,playerMaxHP,&score,&shield,currentTier,currentBossHP,currentBossMaxHP,randomMonster,player);
+                RandomEvent(&playerHP,playerMaxHP,&score,&shield,currentTier,currentBossHP,currentBossMaxHP,randomBoss,player);
 
                 currentTier++;
-                randomMonster = rand() % 2;
+                randomBoss = rand() % 2;
                 currentBossMaxHP = tierHP[currentTier];
                 currentBossHP = currentBossMaxHP;
                 continue;
@@ -1132,13 +832,19 @@ void PlayRPG(struct Flashcard *deck, int count)
         Sleep(1200);
     }
 
+    if(playerHP == 0)
+    {
+        player = empty;
+        EventScene(currentTier,currentBossHP,currentBossMaxHP,playerHP,playerMaxHP,score,shield,randomBoss,"Out of HP!","The light has faded...",player);
+    }
+
     //Result
 
     system("cls");
 
     if(playerHP > 0)
     {
-        final_cut();
+        readtext("win_story");
 
         printf("\t                                       VICTORY!\n");
         printf("\t                      ==============================================\n");
@@ -1148,7 +854,7 @@ void PlayRPG(struct Flashcard *deck, int count)
     }
     else
     {
-        final_loss();
+        readtext("defeat_story");
         printf("\t                                      GAME OVER!\n");
         printf("\t                      ==============================================\n");
         printf("\t                               You fall into the darkness...\n");
