@@ -3,7 +3,7 @@
 void swordman()
 {
     printf(" \033[91m");
-    printf("  A                      \n");
+    printf(" A                      \n");
     printf(" T^T                     \n");
     printf(" T T     ^^^^^^^^^       \n");
     printf(" T T     | __ __ |       \n");

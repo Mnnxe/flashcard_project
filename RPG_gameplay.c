@@ -66,7 +66,7 @@ int LoadDeck(char *setName, struct Flashcard *deck)
 
 void ShuffleDeck(struct Flashcard *deck, int count)
 {
-    srand(time(NULL));
+    //srand(time(NULL));
     for (int i = count - 1; i > 0; i--)
     {
         int j = rand() % (i + 1);
@@ -190,6 +190,8 @@ void readtext(char *story)
 
     }
     printf("\n----------------------------------------------------------------------------------------------------------------------\n");
+    Sleep(1200);
+
 }
 
 //Character
@@ -317,7 +319,7 @@ const char* demon[] =
     "\t\t",//15
     "\t\t",//14
     "\t\t        +---------------------------------------------------+",//13
-    "\t\t        | Stone remembers despair. You’re nothing before me.|",//12
+    "\t\t        | Stone remembers despair. You're nothing before me.|",//12
     "\t\t        +---------------------------------------------------+",//11
     "\t\t   /\\__         __/\\                                       ", // 1
     "\t\t  /`    \\     /    `\\                                      ", // 2
@@ -435,9 +437,9 @@ const char* archer[] =
     "       ccccc                ",//9
     "      ccccccc               ",//10
     "     HHHHHHHHHH    |))       ",//11
-    "   HH|\\__ __/|HH   |))      ",//12
-    "   Hq|  $  $  |pH  | ))     ",//13
-    "   HH|________|HH  |  ))    ",//14
+    "   HH|\\__ __/|HH   | ))     ",//12
+    "   Hq|  $  $  |pH  |  ))    ",//13
+    "   HH|________|HH  |   ))   ",//14
     "     ===   ===     |    ))  ",//15
     " o>> II     II<<<<<<(|))))  ",//16
     " V   II     II     |    ))  ",//17
@@ -477,7 +479,7 @@ void printCharacter(const char** p, const char** m)
 
     for(int line = 0; line < 19; line++)
     {
-        printf("     ")
+        printf("     ");
         printf("%s", p[line]);
         printf("               ");
         printf("%s", m[line]);
@@ -547,7 +549,7 @@ void GameScreen(int currentTier,int currentBossHP,int currentBossMaxHP,int playe
 
     printf("========================================================================================================================\n");
     if (currentTier == 4) printf("%55s",">> FINAL BOSS <<       ");
-    else printf("%45s %d / 4     ","PHASE", currentTier);
+    else printf("%45s %d / 4      ","PHASE", currentTier);
 
     printf("|      SCORE: %d\n", score);
     printf("========================================================================================================================\n");
@@ -671,12 +673,16 @@ void PlayRPG(struct Flashcard *deck, int count)
     const char** player;
 
 
+    readtext("intro_story");
+    printf("\n");
+    printf("\t--- Press Enter to continue ---\n");
+    _getch();
 
     while(1)
     {
         system("cls");
         printf("========================================================================================================================\n");
-        printf("%60s\n","CHOOSE YOUR CHARACTER");
+        printf("%65s\n","CHOOSE YOUR CHARACTER");
         printf("========================================================================================================================\n\n");
         printf("   [1] Swordsman\n");
         printf("       :Trained with Luminsteel, the last blade forged from captured sunlight.\n");
@@ -883,7 +889,7 @@ void StartGame(char *setName)
 
     if (totalCards == 0)
     {
-        printf("[!] No cards found!\n");
+        printf("\n[!] No cards found!\n");
         Sleep(2000);
         return;
     }
@@ -900,6 +906,7 @@ void StartGame(char *setName)
 
 int main()
 {
+
+    srand(time(NULL));
     StartGame("Vocab");
 }
-

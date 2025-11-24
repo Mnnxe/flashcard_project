@@ -35,8 +35,7 @@ char GetLine(int line,char *name ,char *buffer)
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
-        printf("<File is empty>");
-        return 0;
+        printf("\t\t\t< File is empty >");
     }
 
     while(fgets(str,sizeof(str),fp) != NULL)
@@ -57,34 +56,9 @@ char GetLine(int line,char *name ,char *buffer)
 }
 
 //file management function
-int AddSet(char *buffer)
+void AddSet(char *title)
 {
     char file_name[100];
-    char title[100];
-    int MAX_LEN = 50;
-
-    while(1)
-    {
-        system("cls");
-        printf("Enter title (max %d chars) or enter 0 to go back: ", MAX_LEN);
-        gets(title);
-
-        if(strcmp(title, "0") == 0)
-            return 0;
-
-        if(strlen(title) == 0)
-        {
-            printf("\n[!] Empty input is not allowed.\n");
-            Sleep(1200);
-        }
-        else if(strlen(title) > MAX_LEN)
-        {
-            printf("\n[!] Title is too long! Maximum is %d characters.\n", MAX_LEN);
-            Sleep(1200);
-        }
-        else
-            break;
-    }
 
     sprintf(file_name, "%s.txt", title);
 
@@ -93,8 +67,7 @@ int AddSet(char *buffer)
 
     if(fp == NULL || master == NULL)
     {
-        printf("<File Error>");
-        return 0;
+        printf("\t\t\t< File is empty >");
     }
 
     fprintf(master, "%s\n", title);
@@ -102,8 +75,7 @@ int AddSet(char *buffer)
     fclose(fp);
     fclose(master);
 
-    strcpy(buffer, title);
-    return 1;
+    return;
 }
 
 
@@ -119,7 +91,7 @@ void DelSet(char *title)
 
     if(fp == NULL || tp == NULL)
     {
-        printf("<File is empty>");
+        printf("\t\t\t< File is empty >");
     }
 
     while(fgets(str,sizeof(str),fp) != NULL )
@@ -139,31 +111,100 @@ void DelSet(char *title)
     remove("set_list.txt");
     rename("temp_file.txt","set_list.txt");
 
-    printf("\nDeleted successfully.\n ");
+    printf("\n\t\t\tDeleted successfully.\n ");
+    Sleep(1000);
+    return;
+}
+
+void EditSetTitle(char *old_title)
+{
+    int MAX_LEN = 50;
+    char str[50];
+    char new_title[100];
+    char old_file[100];
+    char new_file[100];
+
+    while(1)
+    {
+        printf("\n\t\t\tEnter new title (max %d chars) or enter 0 to go back: ", MAX_LEN);
+        gets(new_title);
+
+        if(strcmp(new_title, "0") == 0)
+            return;
+
+        if(strlen(new_title) == 0)
+        {
+            printf("\t\t\t\n[!] Empty input is not allowed.\n");
+            Sleep(1200);
+        }
+        else if(strlen(new_title) > MAX_LEN)
+        {
+            printf("\n\t\t\t[!] Title is too long! Maximum is %d characters.\n", MAX_LEN);
+            Sleep(1200);
+        }
+        else
+            break;
+    }
+
+    sprintf(old_file,"%s.txt",old_title);
+    sprintf(new_file,"%s.txt",new_title);
+
+    FILE *fp = fopen("set_list.txt","r");
+    FILE *op = fopen(old_file,"r");
+    FILE *tp = fopen("temp_file.txt","w");
+
+    if(fp == NULL || op == NULL || tp == NULL)
+    {
+        printf("\t\t\t< File is empty >");
+    }
+
+    while(fgets(str,sizeof(str),fp) != NULL )
+    {
+        trimNewline(str);
+
+        if(strcmp(str,old_title) != 0)
+        {
+            fprintf(tp,"%s\n",str);
+        }
+        else
+        {
+            fprintf(tp,"%s\n",new_title);
+        }
+    }
+
+    fclose(fp);
+    fclose(tp);
+    fclose(op);
+
+    remove(old_file);
+    remove("set_list.txt");
+    rename("temp_file.txt","set_list.txt");
+    rename(old_file,new_file);
+
+    printf("\n\t\t\tName changed successfully.\n ");
     Sleep(1000);
 }
 
-int AddCard(char *title)
+void AddCard(char *title)
 {
     char w[100];
     char d[100];
     char file_name[100];
-    int MAX_LEN = 50;
+    int MaxLen = 50;
 
     sprintf(file_name, "%s.txt", title);
 
     FILE *fp = fopen(file_name, "a");
     if(fp == NULL)
     {
-        printf("<File Error>");
-        return 1;
+        printf("\t\t\t< File is empty >");
     }
 
     system("cls");
 
     while(1)
     {
-        printf("Enter word (max %d chars) (or enter 0 to go back): ", MAX_LEN);
+        printf("\t\t\tEnter word (max %d chars) (or enter 0 to go back): ", MaxLen);
         fgets(w,sizeof(w),stdin);
         trimNewline(w);
 
@@ -172,35 +213,35 @@ int AddCard(char *title)
 
         if(strlen(w) == 0)
         {
-            printf("\n[!] Empty input is not allowed.\n");
+            printf("\n\t\t\t[!] Empty input is not allowed.\n");
             Sleep(1000);
             continue;
         }
-        else if(strlen(w) > MAX_LEN)
+        else if(strlen(w) > MaxLen)
         {
-            printf("\n[!] Word is too long! Maximum is %d characters.\n", MAX_LEN);
+            printf("\n\t\t\t[!] Word is too long! Maximum is %d characters.\n", MaxLen);
             Sleep(1000);
             continue;
         }
 
             while(1)
             {
-                printf("Enter definition (max %d chars) (or enter 0 to cancel): ", MAX_LEN);
+                printf("\t\t\tEnter definition (max %d chars) (or enter 0 to cancel): ", MaxLen);
                 fgets(d,sizeof(d),stdin);
                 trimNewline(d);
 
                 if(strcmp(d, "0") == 0)
-                    return 0;
+                    return;
 
                 if(strlen(d) == 0)
                 {
-                    printf("\n[!] Empty input is not allowed.\n");
+                    printf("\n\t\t\t[!] Empty input is not allowed.\n");
                     Sleep(1000);
                     continue;
                 }
-                else if(strlen(d) > MAX_LEN)
+                else if(strlen(d) > MaxLen)
                 {
-                    printf("\n[!] Definition is too long! Maximum is %d characters.\n", MAX_LEN);
+                    printf("\n\t\t\t[!] Definition is too long! Maximum is %d characters.\n", MaxLen);
                     Sleep(1000);
                     continue;
                 }
@@ -211,19 +252,21 @@ int AddCard(char *title)
 
 
     fclose(fp);
-    return 1;
+    return;
 }
 
-void DelCard(char *word,char *file)
+void DelCard(char *word,char *title)
 {
     char str[100];
+    char file_name[50];
 
-    FILE *fp = fopen(file,"r");
+    sprintf(file_name,"%s.txt",title);
+    FILE *fp = fopen(file_name,"r");
     FILE *tp = fopen("temp_file.txt","w");
 
     if(fp == NULL || tp == NULL)
     {
-        printf("<File is empty>");
+        printf("\t\t\t< File is empty >");
     }
 
     while(fgets(str,sizeof(str),fp) != NULL )
@@ -239,10 +282,10 @@ void DelCard(char *word,char *file)
     fclose(fp);
     fclose(tp);
 
-    remove(file);
-    rename("temp_file.txt",file);
+    remove(file_name);
+    rename("temp_file.txt",file_name);
 
-    printf("\nDeleted successfully.\n ");
+    printf("\n\t\t\tDeleted successfully.\n ");
     Sleep(1000);
 }
 
@@ -258,13 +301,12 @@ int CardList(char *title)
     FILE *fp = fopen(file_name,"r");
     if(fp == NULL)
     {
-        printf("<File is empty>");
-        return 0;
+        printf("\t\t\t< File is empty >");
     }
 
     while(fgets(str,sizeof(str),fp)!= NULL)
     {
-        printf("%d. %s",count,str);
+        printf("\t\t\t%3d. %s",count,str);
         count++;
     }
 
@@ -279,13 +321,13 @@ int SetList()
 
     if(fp == NULL)
     {
-        printf("<File is empty>");
-        return 0;
+        printf("\t\t\t< File is empty >");
+        //return 0;
     }
 
     while(fgets(str,100,fp)!= NULL)
     {
-        printf("  %d. %s",count,str);
+        printf("\t\t\t%3d. %s",count,str);
         count++;
     }
 
@@ -295,30 +337,17 @@ int SetList()
 void CardMenu(char *title)
 {
     char choice,confirm;
-    char file_name[100];
     char card[200];
     int lineNum;
-
-    sprintf(file_name,"%s.txt",title);
-
-    FILE *fp = fopen(file_name,"r");
-
-    if(fp == NULL)
-    {
-        printf("<File is empty>");
-        return;
-    }
-
-    fclose(fp);
 
     do
     {
         system("cls");
-        printf("======== %s ========\n",title);
+        printf("\t\t\t========================= %s =========================\n\n",title);
         CardList(title);
         printf("\n");
-        printf("\n[A]Add  [D]Delete  [X]Back ");
-        printf("\nSelect an option: ");
+        printf("\n\t\t\t[A]Add  [D]Delete  [X]Back ");
+        printf("\n\t\t\tSelect an option: ");
         choice = _getch();
         printf("%c\n",choice);
         choice = tolower(choice);
@@ -333,33 +362,33 @@ void CardMenu(char *title)
             case 'd':
                 while(1)
                 {
-                    printf("Enter line number to delete(0 to cancel): ");
+                    printf("\t\t\tEnter line number to delete(0 to cancel): ");
                     if(scanf("%d",&lineNum)!=1)
                     {
                         clearBuffer();
-                        printf("\n Invalid input! Please try again.\n");
+                        printf("\t\t\t[!] Invalid input! Please try again.\n");
                         Sleep(1000);
                         continue;
                     }
                     clearBuffer();
                     if(lineNum == 0)
                     {
-                        printf(">Canceled<");
+                        printf("\t\t\t> Canceled <");
                         Sleep(1000);
                         break;
                     }
                     if(GetLine(lineNum,title,card) == 1)
                     {
-                        printf("Are you sure you want to delete? (y/n): ");
+                        printf("\t\t\tAre you sure you want to delete? (y/n): ");
                         confirm = _getch();
                         printf("%c\n",confirm);
                         if(confirm == 'y')
                         {
-                            DelCard(card,file_name);
+                            DelCard(card,title);
                         }
                         else
                         {
-                            printf(">Canceled<");
+                            printf("\t\t\t> Canceled <");
                             fflush(stdout);
                             Sleep(1000);
                         }
@@ -368,7 +397,7 @@ void CardMenu(char *title)
                     }
                     else
                     {
-                        printf("[!]: Card number %d not found\n",lineNum);
+                        printf("\t\t\t[!] Card number %d not found\n",lineNum);
                         Sleep(1200);
                     }
                 }
@@ -377,7 +406,7 @@ void CardMenu(char *title)
             case 'x': return;
 
             default:
-                printf("\n Invalid input! Please try again.\n");
+                printf("\t\t\t[!] Invalid input. Please try again.\n");
                 Sleep(1000);
         }
     }while (choice != 'x');
@@ -388,15 +417,18 @@ void RunSetMenu()
     char choice,confirm;
     char setName[100];
     int lineNum;
+    int MaxLen = 50;
+    char manage;
+    char new_title[100];
 
     do
     {
         system("cls");
-        printf("========================= Flashcard Sets =========================\n");
+        printf("\t\t\t========================= Flashcard Sets =========================\n\n");
         SetList();
         printf("\n\n");
-        printf("     [A]Add  [D]Delete  [M]Manage  [X]Exit\n\n");
-        printf("     Select an option: ");
+        printf("\t\t\t[A]Add  [D]Delete  [M]Manage  [X]Exit\n\n");
+        printf("\t\t\tSelect an option: ");
         choice = _getch();
         printf("%c\n",choice);
         choice = tolower(choice);
@@ -404,32 +436,55 @@ void RunSetMenu()
         switch(choice)
         {
             case 'a':
-                if (AddSet(setName) == 1)
-                    CardMenu(setName);
+                while(1)
+                {
+                    printf("\t\t\tEnter title (max %d chars) or enter 0 to go back: ", MaxLen);
+                    gets(setName);
+
+                    if(strcmp(setName, "0") == 0)
+                    break;
+
+                    if(strlen(setName) == 0)
+                    {
+                        printf("\t\t\t\n[!] Empty input is not allowed.\n");
+                        Sleep(1200);
+                    }
+                    else if(strlen(setName) > MaxLen)
+                    {
+                        printf("\n\t\t\t[!] Title is too long! Maximum is %d characters.\n", setName);
+                        Sleep(1200);
+                    }
+                    else
+                    {
+                            AddSet(setName);
+                            CardMenu(setName);
+                        break;
+                    }
+                }
                 break;
 
             case 'd':
                 while(1)
                 {
 
-                    printf("Enter line number to delete(0 to cancel): ");
+                    printf("\t\t\tEnter line number to delete(0 to cancel): ");
                     if(scanf("%d",&lineNum)!=1)
                     {
                         clearBuffer();
-                        printf("\n Invalid input! Please try again.\n");
+                        printf("\n\t\t\t[!] Invalid input. Please try again.\n");
                         Sleep(1000);
                         continue;
                     }
                     clearBuffer();
                     if(lineNum == 0)
                     {
-                        printf(">Canceled<");
+                        printf("\t\t\t> Canceled <");
                         Sleep(1000);
                         break;
                     }
                     if(GetLine(lineNum,"set_list",setName) == 1)
                     {
-                        printf("Are you sure you want to delete? (y/n): ");
+                        printf("\t\t\tAre you sure you want to delete? (y/n): ");
                         confirm = _getch();
                         printf("%c\n",confirm);
                         if(confirm == 'y')
@@ -438,7 +493,7 @@ void RunSetMenu()
                         }
                         else
                         {
-                            printf(">Canceled<");
+                            printf("\t\t\t> Canceled <");
                             fflush(stdout);
                             Sleep(1000);
                         }
@@ -446,7 +501,7 @@ void RunSetMenu()
                     }
                     else
                     {
-                        printf("[!]: Set number %d not found\n",lineNum);
+                        printf("\t\t\t[!] Set number %d not found\n",lineNum);
                         Sleep(1200);
                     }
                 }
@@ -455,38 +510,62 @@ void RunSetMenu()
             case 'm':
                 while(1)
                 {
-                    printf("Enter line number to manage(0 to cancel): ");
+                    printf("\t\t\tEnter line number to manage(0 to cancel): ");
+
                     if(scanf("%d",&lineNum)!=1)
                     {
                         clearBuffer();
-                        printf("\n Invalid input! Please try again.\n");
+                        printf("\n\t\t\t[!] Invalid input. Please try again.\n");
                         Sleep(1000);
                         continue;
                     }
                     clearBuffer();
                     if(lineNum == 0)
                     {
-                        printf(">Canceled<");
+                        printf("\t\t\t> Canceled <");
                         Sleep(1000);
                         break;
                     }
                     if(GetLine(lineNum,"set_list",setName) == 1)
                     {
-                            CardMenu(setName);
+                        while(1)
+                        {
+                            printf("\t\t\tWhat do you want to do(0 to cancel)\n");
+                            printf("\t\t\t  [1]Manage card in set\n");
+                            printf("\t\t\t  [2]Change set name\n");
+                            printf("\t\t\t>>");
+
+                            manage = _getch();
+
+                            if(manage == '1')
+                            {
+                                CardMenu(setName);
+                                break;
+                            }
+                            else if(manage == '2')
+                            {
+                                EditSetTitle(setName);
+                                break;
+                            }
+                            else if(manage == '0') break;
+                            else printf("\n\t\t\t[!] Invalid input. Please try again.\n");
+
+                        }
                         break;
                     }
                     else
                     {
-                        printf("[!]: Set number %d not found\n",lineNum);
+                        printf("\t\t\t[!] Set number %d not found\n",lineNum);
                         Sleep(1200);
                     }
                 }
+
                 break;
 
             case 'x': return;
 
             default:
-                printf("\n Invalid choice! Please try again.\n");
+                printf("\n\t\t\t[!] Invalid input. Please try again.\n");
                 Sleep(1000);
         }
     }while (choice != 'x');
@@ -494,59 +573,6 @@ void RunSetMenu()
 }
 
 //Learn
-
-//Game
-int LoadDeck(char *setName, struct Flashcard *deck)
-{
-    char file_name[100];
-    char str[250];
-    int count = 0;
-
-    sprintf(file_name, "%s.txt", setName);
-    FILE *fp = fopen(file_name, "r");
-
-    if (fp == NULL)
-    {
-        printf("<Error open file>");
-        return 0;
-    }
-
-    while (fgets(str, sizeof(str), fp) != NULL)
-    {
-
-        trimNewline(str);
-
-        char *token_word = strtok(str, ":");
-        char *token_def = strtok(NULL, ":");
-
-        if (token_word != NULL && token_def != NULL)
-        {
-            strcpy(deck[count].word, token_word);
-            strcpy(deck[count].definition, token_def);
-            count++;
-        }
-
-        if (count >= 100) break;
-    }
-
-    fclose(fp);
-    return count;
-}
-
-void ShuffleDeck(struct Flashcard *deck, int count)
-{
-    srand(time(NULL));
-    for (int i = count - 1; i > 0; i--)
-    {
-        int j = rand() % (i + 1);
-
-        struct Flashcard temp = deck[i];
-        deck[i] = deck[j];
-        deck[j] = temp;
-    }
-}
-
-
 void GenerateOptions(struct Flashcard *deck, int count, int currentIdx, struct Flashcard *options, int *correctOptionIdx)
 {
     int i,j,randIdx,isDuplicate,temp;
@@ -619,18 +645,18 @@ void GameTitle()
 {
     system("cls");
         printf("\n");
-        printf("               ###### ######    #####   ##     ##    ##    ##   #####   ##     ##      #####   ##    ##\n");
-        printf("               ##     ##    # ##     ## ###   ###    ###   ## ##     ## ##  #  ##    ##     ## ###   ##\n");
-        printf("               ###### ######  ##     ## ## ### ##    ## ## ## ##     ## ## ### ##    ##     ## ## ## ##\n");
-        printf("               ##     ##  ##  ##     ## ##  #  ##    ##   ### ##     ## ###   ###    ##     ## ##   ###\n");
-        printf("               ##     ##   ##   #####   ##     ##    ##    ##   #####   ##     ##      #####   ##    ##\n");
+        printf("             ###### ######    #####   ##     ##    ##    ##   #####   ##     ##      #####   ##    ##\n");
+        printf("             ##     ##    # ##     ## ###   ###    ###   ## ##     ## ##  #  ##    ##     ## ###   ##\n");
+        printf("             ###### ######  ##     ## ## ### ##    ## ## ## ##     ## ## ### ##    ##     ## ## ## ##\n");
+        printf("             ##     ##  ##  ##     ## ##  #  ##    ##   ### ##     ## ###   ###    ##     ## ##   ###\n");
+        printf("             ##     ##   ##   #####   ##     ##    ##    ##   #####   ##     ##      #####   ##    ##\n");
 
         printf("\n");
-        printf("    ######  ###### ##    #####       ###       ##    ##  ######  ##     ##      ######      ###   ##     ##  ##    ##\n");
-        printf("      ##      ##   ##   ##         ##   ##     ###   ##  ##      ##  #  ##      ##    #   ##   ## ##  #  ##  ###   ##\n");
-        printf("      ##      ##         #####     #######     ## ## ##  ######  ## ### ##      ##     #  ####### ## ### ##  ## ## ##\n");
-        printf("      ##      ##             ##    ##   ##     ##   ###  ##      ###   ###      ##    #   ##   ## ###   ###  ##   ###\n");
-        printf("    ######    ##         #####     ##   ##     ##    ##  ######  ##     ##      ######    ##   ## ##     ##  ##    ##\n");
+        printf("    ###### ###### ##   #####       ###       ##    ## ###### ##     ##    ######     ###   ##     ## ##    ##\n");
+        printf("      ##     ##   ##  ##         ##   ##     ###   ## ##     ##  #  ##    ##    #  ##   ## ##  #  ## ###   ##\n");
+        printf("      ##     ##        #####     #######     ## ## ## ###### ## ### ##    ##     # ####### ## ### ## ## ## ##\n");
+        printf("      ##     ##            ##    ##   ##     ##   ### ##     ###   ###    ##    #  ##   ## ###   ### ##   ###\n");
+        printf("    ######   ##        #####     ##   ##     ##    ## ###### ##     ##    ######   ##   ## ##     ## ##    ##\n");
 
         printf("\n------------------------------------------------------------------------------------------------------------------------\n");
         printf("\n                                             RPG LERNING FLASHCARD GAME\n");
@@ -646,12 +672,12 @@ int main()
 
     do
     {   GameTitle();
-        printf("%50s[1] Start Game\n"," ");
-        printf("%50s[2] Learn Flashcard\n"," ");
-        printf("%50s[3] Manage Flashcard\n"," ");
-        printf("%50s[X] Close Program\n"," ");
+        printf("%46s[1] Start Game\n"," ");
+        printf("%46s[2] Learn Flashcard\n"," ");
+        printf("%46s[3] Manage Flashcard\n"," ");
+        printf("%46s[X] Close Program\n"," ");
 
-        printf("%48s>>"," ");
+        printf("%46s>>"," ");
         choice = _getch();
         printf("%c",choice);
         choice = tolower(choice);
@@ -662,28 +688,28 @@ int main()
                 while(1)
                 {
                     system("cls");
-                    printf("==========Which set you want to play?===========\n");
+                    printf("\t\t\t========================= Which set you want to play =========================\n");
                     SetList();
 
-                    printf("\nEnter line number(0 to cancel): ");
+                    printf("\n\t\t\tEnter line number(0 to cancel): ");
                     if(scanf("%d",&lineNum)!=1)
                     {
                         clearBuffer();
-                        printf("\n Invalid input! Please try again.\n");
+                        printf("\n\t\t\t[!] Invalid input. Please try again.\n");
                         Sleep(1000);
                         continue;
                     }
                     clearBuffer();
                     if(lineNum == 0)
                     {
-                        printf(">Canceled<");
+                        printf("\t\t\t> Canceled <");
                         Sleep(1000);
                         break;
                     }
                     if(GetLine(lineNum,"set_list",setName) == 1)
 
                     {
-                        printf(">> %s is selected, You want to continue?(y/n): ",setName);
+                        printf("\t\t\t>> %s is selected, You want to continue?(y/n): ",setName);
                         confirm = _getch();
                         printf("%c\n",confirm);
                         if(confirm == 'y')
@@ -693,7 +719,7 @@ int main()
                         }
                         else
                         {
-                            printf(">Canceled<");
+                            printf("\t\t\t> Canceled <");
                             fflush(stdout);
                             Sleep(1000);
                         }
@@ -701,7 +727,7 @@ int main()
                     }
                     else
                     {
-                        printf("[!]: Set number %d not found\n",lineNum);
+                        printf("[!] Set number %d not found\n",lineNum);
                         Sleep(1200);
                     }
                     break;
@@ -714,7 +740,7 @@ int main()
             case 'x': return 0;
 
             default :
-                printf("\n [!]Invalid input! Please try again.\n");
+                printf("\n [!] Invalid input. Please try again.\n");
                 Sleep(1000);
         }
     }while(choice != 'x');
