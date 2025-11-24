@@ -1,12 +1,13 @@
-void repeat(char w[][100],char def[][100],int rep,char *name);
-
 int st=0;
 char co;
+char ce = ' ';
+char cn;
 
 void learn()
 {
-    int ch,count=0,count2=0,i=0,j,space,end=0,status;
-    int b=0;
+    int ch,count=0,count2=0,i=0,j,space=0,end=0,status;
+    int b=0,sp,en;
+    int cor;
     char set_num;
     char set_name[100];
     char p[100];
@@ -21,153 +22,202 @@ void learn()
     FILE *a;
     while(1)
     {
-    system("cls");
-    printf("LEARN\n"); //make more beautiful interface
+        system("cls");
+        printf("LEARN\n"); //make more beautiful interface
 
-    SetList();
+        SetList();
 
-    char buf[10];
+        char buf[10];
 
-    printf("Enter number to choose the category(enter 0 to go back): ");
+        printf("Enter number to choose the category(enter 0 to go back): ");
 
-    fflush(stdin);
-    co = _getch();
-    if(co=='0') return;
+        fflush(stdin);
+        co = _getch();
+        if(co=='0') return;
 
-    printf("%c",co);
-    ch = co - '0';
+        printf("%c",co);
+        ch = co - '0';
 
-    c = fopen("set_list.txt","r");
+        c = fopen("set_list.txt","r");
 
 
-    while(!feof(c))
-    {
-        //fscanf(c,"%c",set_num);
-        GetLine(ch,"set_list",set_name);
-        if(ch==NULL)
+        while(!feof(c))
         {
-            printf("No CARD SET found. Please insert card category!!/n");
-            printf("\n");
-            printf("X: Back to Main Menu\n");
-            printf("Q: Quit the Program\n");
-
-            co = _getch();
-            co = tolower(co);
-            if(co=='x') return;
-            if(co=='q') break;
-        }
-
-        clearBuffer();
-
-        sprintf(card_file,"%s.txt",set_name);
-        a = fopen(card_file,"r");
-
-        while (fgets(origi, sizeof(origi), a))
-        {
-            origi[strcspn(origi, "\n")] = '\0';
-
-            char *word = strtok(origi, ":");
-            char *defi  = strtok(NULL, ":");
-
-            if (word != NULL)
+            //fscanf(c,"%c",set_num);
+            GetLine(ch,"set_list",set_name);
+            if(ch==NULL)
             {
-                strcpy(w[count2], word);
-            }
-            if (defi != NULL)
-            {
-                strcpy(def[count2], defi);
-            }
-
-            count2++;
-        }
-
-        while(1)
-        {
-            for(i=0; i<count2; i++)
-        {
-            status = 0;
-            system("cls");
-            printf("---------------- %s --------------------\n",set_name);
-            printf("    ----------------------------------\n");
-            printf("   |                                  |\n"); //34 space
-            printf("   |                                  |\n");
-            if(count%2==0)
-            {
-                space = strlen(w[i]);
-                printf("   |");
-                for(j=0; j<((34-space)/2)+1; j++) printf(" ");
-                printf("%s",w[i]);
-                for(j=0; j<((34-space)/2); j++) printf(" "); printf("|\n");
-            }
-
-            if(count%2!=0)
-            {
-                space = strlen(def[i]);
-                printf("   |");
-                for(j=0; j<((34-space)/2)+1; j++) printf(" ");
-                printf("%s",def[i]);
-                for(j=0; j<((34-space)/2); j++) printf(" "); printf("|\n");
-            }
-
-            //printf("   |                 %s               |\n",w[i]);
-            printf("   |                                  |\n");
-            printf("   |                                  |\n");
-            printf("    ----------------------------------\n");
-
-            if(count%2==0) printf("         Press ENTER to flip cards \n");
-
-            if(count%2!=0)
-            {
+                printf("No CARD SET found. Please insert card category!!/n");
                 printf("\n");
-                printf("    1: Pass\n");
-                printf("    2: Still Learning\n");
-                printf("    3: Back to Menu\n");
-                printf("\n");
+                printf("X: Back to Main Menu\n");
+                printf("Q: Quit the Program\n");
+
+                co = _getch();
+                co = tolower(co);
+                if(co=='x') return;
+                if(co=='q') break;
             }
 
-            co = _getch();
+            clearBuffer();
 
-            if(co=='\r' && count%2==0)
+            sprintf(card_file,"%s.txt",set_name);
+            a = fopen(card_file,"r");
+
+            while (fgets(origi, sizeof(origi), a))
             {
-                st = 0; system("cls");
-                i--;
-                count++;
+                origi[strcspn(origi, "\n")] = '\0';
+
+                char *word = strtok(origi, ":");
+                char *defi  = strtok(NULL, ":");
+
+                if (word != NULL)
+                {
+                    strcpy(w[count2], word);
+                }
+
+                if (defi != NULL)
+                {
+                    strcpy(def[count2], defi);
+                }
+
+                count2++;
             }
 
-            if(co=='1')
+            while(1)
             {
-                st = 0; system("cls");
-                count++;
-                continue;
-            }
 
-            if(co=='2')
-            {
-                st = 0; system("cls");
-                strcpy(w_mem[b],w[i]);
-                strcpy(def_mem[b],def[i]);
-                b++;
-                count++;
-                continue;
-            }
+                for(i=0; i<count2; i++)
+                {
+                    int mode = count % 2;  // 0 = word, 1 = def
 
-            if(co=='3')
-            {
+                    if(mode==0)
+                    {
+                        system("cls");
+                        printf("---------------- %s --------------------\n",set_name);
+                        printf("    ----------------------------------\n");
+                        printf("   |                                  |\n"); //34 space
+                        printf("   |                                  |\n");
+
+                        space = strlen(w[i]);
+                        sp = (34-space);
+                        printf("   |");
+
+                        if(sp%2==0)
+                        {
+                            for(j=0; j<sp/2; j++) printf(" ");
+                            printf("%s",w[i]);
+                            for(j=0; j<sp/2; j++) printf(" "); printf("|\n");
+                        }
+
+                        else
+                        {
+                            for(j=0; j<sp/2; j++) printf(" ");
+                            printf("%s",w[i]);
+                            for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
+                        }
+
+                        printf("   |                                  |\n");
+                        printf("   |                                  |\n");
+                        printf("    ----------------------------------\n");
+
+                        printf("         Press ENTER to flip cards \n");
+                        //en = 6;
+
+                        do
+                        {
+                            fflush(stdin);
+                            ce = _getch();
+
+                        }while(ce!='\r');
+
+                        st = 0; system("cls");
+                        i--;
+                        count++;
+                        ce = ' ';
+                    }
+
+                    if(mode==1)
+                    {
+                        system("cls");
+                        printf("---------------- %s --------------------\n",set_name);
+                        printf("    ----------------------------------\n");
+                        printf("   |                                  |\n"); //34 space
+                        printf("   |                                  |\n");
+
+                        //if(en==1) i++;
+
+                        space = strlen(def[i]);
+                        sp = (34-space);
+                        printf("   |");
+
+                        if(sp%2==0)
+                        {
+                            for(j=0; j<sp/2; j++) printf(" ");
+                            printf("%s",def[i]);
+                            for(j=0; j<sp/2; j++) printf(" "); printf("|\n");
+                        }
+
+                        if(sp%2==1)
+                        {
+                            for(j=0; j<sp/2; j++) printf(" ");
+                            printf("%s",def[i]);
+                            for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
+                        }
+
+                        //printf("   |                 %s               |\n",w[i]);
+                        printf("   |                                  |\n");
+                        printf("   |                                  |\n");
+                        printf("    ----------------------------------\n");
+
+                        printf("\n");
+                        printf("    1: Pass\n");
+                        printf("    2: Still Learning\n");
+                        printf("    3: Back to Menu\n");
+                        printf("\n");
+
+                        do
+                        {
+                            fflush(stdin);
+                            cn = _getch();
+                            //printf("%c",cn);
+
+                        }while(cn!='1' && cn!='2' && cn!='3');
+
+                        switch(cn)
+                        {
+                            case '1' :
+                                count++;
+                                cn = '_';
+                                //en = 2;
+                                //cor = 1;
+                                continue;
+                            case '2' :
+                                strcpy(w_mem[b], w[i]);
+                                strcpy(def_mem[b], def[i]);
+                                //en = 2;
+                                b++;
+                                count++;
+                                //cor = 1;
+                                cn = '_';
+                                continue;
+                            case '3':
+                                cn = '_';
+                                return;
+                        }
+                    }
+                }
                 break;
             }
-        }
 
-        if(b!=0)
-        {
-            repeat(w_mem,def_mem,b,set_name);
-            system("cls");
-            break;
-        }
-        if(b==0) break;
+            if(b!=0)
+            {
+                repeat(w_mem,def_mem,b,set_name);
+                system("cls");
+                break;
+            }
 
-        }//while(1)
-
-        if(co=='3') return;
+            if(b==0) break;
+        }//while(eof)
 
         system("cls");
         printf("---------------- %s --------------------\n",set_name);
@@ -179,18 +229,18 @@ void learn()
         fflush(stdin);
         co = _getch();
         co = tolower(co);
-        if(co=='x') status = 5;
-        if(co=='l') status = 6;
+        if(co=='x') return;
+        if(co=='l') break;
 
         if(status==5) return;
-        if(status==6) break;
+        //if(status==6) break;
 
-    }
-    if(status==6) continue;
+        }
+    //if(status==6) continue;
     fclose(c);
     fclose(a);
-    }
 }
+
 void repeat(char w[][100],char def[][100],int rep,char *name)
 {
     int i,space,j,n,a;
@@ -201,81 +251,126 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
     {
         for(i=0; i<rep; i++)
         {
-            system("cls");
-            printf("---------------- %s --------------------\n",name);
-            printf("    ----------------------------------\n");
-            printf("   |                                  |\n"); //34 space
-            printf("   |                                  |\n");
+            int mode = count % 2;  // 0 = word, 1 = def
 
-            if(count%2==0)
+            if(mode==0)
             {
+                system("cls");
+                printf("---------------- %s --------------------\n",name);
+                printf("    ----------------------------------\n");
+                printf("   |                                  |\n"); //34 space
+                printf("   |                                  |\n");
+
                 space = strlen(w[i]);
+                int sp = (34-space);
                 printf("   |");
-                for(j=0; j<((34-space)/2)+1; j++) printf(" ");
-                printf("%s",w[i]);
-                for(j=0; j<((34-space)/2); j++) printf(" "); printf("|\n");
+
+                if(sp%2==0)
+                {
+                    for(j=0; j<sp/2; j++) printf(" ");
+                    printf("%s",w[i]);
+                    for(j=0; j<sp/2; j++) printf(" "); printf("|\n");
+                }
+
+                else
+                {
+                    for(j=0; j<sp/2; j++) printf(" ");
+                    printf("%s",w[i]);
+                    for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
+                }
+
+                printf("   |                                  |\n");
+                printf("   |                                  |\n");
+                printf("    ----------------------------------\n");
+
+                printf("         Press ENTER to flip cards \n");
+
+                do
+                {
+                    fflush(stdin);
+                    ce = _getch();
+
+                }while(ce!='\r');
+
+                st = 0; system("cls");
+                i--;
+                count++;
+                ce = ' ';
             }
 
-            if(count%2!=0)
+            if(mode==1)
             {
+                system("cls");
+                printf("---------------- %s --------------------\n",name);
+                printf("    ----------------------------------\n");
+                printf("   |                                  |\n"); //34 space
+                printf("   |                                  |\n");
+
+                        //if(en==1) i++;
+
                 space = strlen(def[i]);
+                int sp = (34-space);
                 printf("   |");
-                for(j=0; j<((34-space)/2)+1; j++) printf(" ");
-                printf("%s",def[i]);
-                for(j=0; j<((34-space)/2); j++) printf(" "); printf("|\n");
-            }
 
-            printf("   |                                  |\n");
-            printf("   |                                  |\n");
-            printf("    ----------------------------------\n");
+                if(sp%2==0)
+                {
+                    for(j=0; j<sp/2; j++) printf(" ");
+                    printf("%s",def[i]);
+                    for(j=0; j<sp/2; j++) printf(" "); printf("|\n");
+                }
 
-            if(count%2==0) printf("         Press ENTER to flip cards \n");
+                if(sp%2==1)
+                {
+                    for(j=0; j<sp/2; j++) printf(" ");
+                    printf("%s",def[i]);
+                    for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
+                }
 
-            if(count%2!=0)
-            {
+                printf("   |                                  |\n");
+                printf("   |                                  |\n");
+                printf("    ----------------------------------\n");
+
                 printf("\n");
                 printf("    1: Pass\n");
                 printf("    2: Still Learning\n");
                 printf("    3: Back to Menu\n");
                 printf("\n");
-            }
 
-            co = _getch();
-
-            if(co=='\r' && count%2==0)
-            {
-                st = 0; system("cls");
-                i--;
-                count++;
-            }
-
-            if(co=='1')
-            {
-                st = 0; system("cls");
-                count++;
-                rep--;
-
-                for(a=i; a<l; a++)
+                do
                 {
-                    strcpy(w[i],w[i+1]);
-                    strcpy(def[i],def[i+1]);
+                    fflush(stdin);
+                    cn = _getch();
+                            //printf("%c",cn);
+
+                }while(cn!='1' && cn!='2' && cn!='3');
+
+                switch(cn)
+                {
+                    case '1' :
+                        st = 0; system("cls");
+                        count++;
+                        rep--;
+
+                        for(a=i; a<l; a++)
+                        {
+                            strcpy(w[i],w[i+1]);
+                            strcpy(def[i],def[i+1]);
+                        }
+                        l--;
+                        cn = '_';
+                        continue;
+
+                    case '2' :
+                        st = 0; system("cls");
+                        n = i;
+                        count++;
+                        cn = '_';
+                        continue;
+
+                    case '3':
+                        cn = '_';
+                        return;
                 }
-                l--;
-
-                continue;
-            }
-
-            if(co=='2')
-            {
-                st = 0; system("cls");
-                n = i;
-                count++;
-                continue;
-            }
-
-            if(co=='3')
-            {
-                return;
             }
         }
     }
