@@ -8,6 +8,7 @@ void learn()
     int ch,count=0,count2=0,i=0,j,space=0,end=0,status;
     int b=0,sp,en;
     int cor;
+    int maxspace = 50;
     char set_num;
     char set_name[100];
     char p[100];
@@ -23,13 +24,13 @@ void learn()
     while(1)
     {
         system("cls");
-        printf("LEARN\n"); //make more beautiful interface
+        printf("\t\t\t========================= LEARN =========================\n\n"); //make more beautiful interface
 
         SetList();
 
         char buf[10];
 
-        printf("Enter number to choose the category(enter 0 to go back): ");
+        printf("\n\t\t\tEnter number to choose the category(enter 0 to go back): ");
 
         fflush(stdin);
         co = _getch();
@@ -47,10 +48,10 @@ void learn()
             GetLine(ch,"set_list",set_name);
             if(ch==NULL)
             {
-                printf("No CARD SET found. Please insert card category!!/n");
+                printf("\t\t\t\tNo CARD SET found. Please insert card category!!/n");
                 printf("\n");
-                printf("X: Back to Main Menu\n");
-                printf("Q: Quit the Program\n");
+                printf("\t\t\t\t[X] Back to Main Menu\n");
+                printf("\t\t\t\t[Q] Quit the Program\n");
 
                 co = _getch();
                 co = tolower(co);
@@ -93,13 +94,14 @@ void learn()
                     if(mode==0)
                     {
                         system("cls");
-                        printf("---------------- %s --------------------\n",set_name);
-                        printf("    ----------------------------------\n");
-                        printf("   |                                  |\n"); //34 space
-                        printf("   |                                  |\n");
+                        printf("\t\t\t------------------------- %s -------------------------\n",set_name);
+                        printf("\t\t\t\t    -------------------------------------------------\n");
+                        printf("\t\t\t\t   |                                                 |\n"); //50 space
+                        printf("\t\t\t\t   |                                                 |\n");
 
                         space = strlen(w[i]);
-                        sp = (34-space);
+                        sp = (maxspace-space);
+                        printf("\t\t\t\t");
                         printf("   |");
 
                         if(sp%2==0)
@@ -116,11 +118,11 @@ void learn()
                             for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
                         }
 
-                        printf("   |                                  |\n");
-                        printf("   |                                  |\n");
-                        printf("    ----------------------------------\n");
+                        printf("\t\t\t\t   |                                                 |\n");
+                        printf("\t\t\t\t   |                                                 |\n");
+                        printf("\t\t\t\t    -------------------------------------------------\n");
 
-                        printf("         Press ENTER to flip cards \n");
+                        printf("\t\t\t\t         Press ENTER to flip cards \n");
                         //en = 6;
 
                         do
@@ -139,15 +141,16 @@ void learn()
                     if(mode==1)
                     {
                         system("cls");
-                        printf("---------------- %s --------------------\n",set_name);
-                        printf("    ----------------------------------\n");
-                        printf("   |                                  |\n"); //34 space
-                        printf("   |                                  |\n");
+                        printf("\t\t\t------------------------- %s -------------------------\n",set_name);
+                        printf("\t\t\t\t    --------------------------------------------------\n");
+                        printf("\t\t\t\t   |                                                  |\n"); //50 space
+                        printf("\t\t\t\t   |                                                  |\n");
 
                         //if(en==1) i++;
 
                         space = strlen(def[i]);
-                        sp = (34-space);
+                        sp = (maxspace-space);
+                        printf("\t\t\t\t");
                         printf("   |");
 
                         if(sp%2==0)
@@ -165,14 +168,14 @@ void learn()
                         }
 
                         //printf("   |                 %s               |\n",w[i]);
-                        printf("   |                                  |\n");
-                        printf("   |                                  |\n");
-                        printf("    ----------------------------------\n");
+                        printf("\t\t\t\t   |                                                  |\n");
+                        printf("\t\t\t\t   |                                                  |\n");
+                        printf("\t\t\t\t    --------------------------------------------------\n");
 
                         printf("\n");
-                        printf("    1: Pass\n");
-                        printf("    2: Still Learning\n");
-                        printf("    3: Back to Menu\n");
+                        printf("\t\t\t\t    [1] Pass\n");
+                        printf("\t\t\t\t    [2] Still Learning\n");
+                        printf("\t\t\t\t    [X] Back to Menu\n");
                         printf("\n");
 
                         do
@@ -180,8 +183,9 @@ void learn()
                             fflush(stdin);
                             cn = _getch();
                             //printf("%c",cn);
+                            cn = tolower(cn);
 
-                        }while(cn!='1' && cn!='2' && cn!='3');
+                        }while(cn!='1' && cn!='2' && cn!='x');
 
                         switch(cn)
                         {
@@ -200,7 +204,7 @@ void learn()
                                 //cor = 1;
                                 cn = '_';
                                 continue;
-                            case '3':
+                            case 'x':
                                 cn = '_';
                                 return;
                         }
@@ -220,11 +224,11 @@ void learn()
         }//while(eof)
 
         system("cls");
-        printf("---------------- %s --------------------\n",set_name);
-        printf("   Learning End: You did it!!!!\n");
+        printf("\t\t\t------------------------- %s -------------------------\n",set_name);
+        printf("\t\t\t\t   Learning End: You did it!!!!\n");
         printf("\n");
-        printf("   X: Back to Main Menu\n");
-        printf("   L: Learn New Category\n");
+        printf("\t\t\t\t   [X] Back to Main Menu\n");
+        printf("\t\t\t\t   [L] Learn New Category\n");
 
         fflush(stdin);
         co = _getch();
@@ -244,6 +248,7 @@ void learn()
 void repeat(char w[][100],char def[][100],int rep,char *name)
 {
     int i,space,j,n,a;
+    int maxspace = 50;
     int count=0;
     int l = rep;
 
@@ -256,13 +261,14 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
             if(mode==0)
             {
                 system("cls");
-                printf("---------------- %s --------------------\n",name);
-                printf("    ----------------------------------\n");
-                printf("   |                                  |\n"); //34 space
-                printf("   |                                  |\n");
+                printf("\t\t\t------------------------- %s -------------------------\n",name);
+                printf("\t\t\t    -------------------------------------------------\n");
+                printf("\t\t\t   |                                                  |\n"); //50 space
+                printf("\t\t\t   |                                                  |\n");
 
                 space = strlen(w[i]);
-                int sp = (34-space);
+                int sp = (maxspace-space);
+                printf("\t\t\t");
                 printf("   |");
 
                 if(sp%2==0)
@@ -279,11 +285,11 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
                     for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
                 }
 
-                printf("   |                                  |\n");
-                printf("   |                                  |\n");
-                printf("    ----------------------------------\n");
+                printf("\t\t\t\t   |                                                 |\n");
+                printf("\t\t\t\t   |                                                 |\n");
+                printf("\t\t\t\t    -------------------------------------------------\n");
 
-                printf("         Press ENTER to flip cards \n");
+                printf("\t\t\t\t         Press ENTER to flip cards \n");
 
                 do
                 {
@@ -301,15 +307,16 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
             if(mode==1)
             {
                 system("cls");
-                printf("---------------- %s --------------------\n",name);
-                printf("    ----------------------------------\n");
-                printf("   |                                  |\n"); //34 space
-                printf("   |                                  |\n");
+                printf("\t\t\t------------------------- %s -------------------------\n",name);
+                printf("\t\t\t\t    -------------------------------------------------\n");
+                printf("\t\t\t\t   |                                                 |\n"); //50 space
+                printf("\t\t\t\t   |                                                 |\n");
 
                         //if(en==1) i++;
 
                 space = strlen(def[i]);
-                int sp = (34-space);
+                int sp = (maxspace-space);
+                printf("\t\t\t\t");
                 printf("   |");
 
                 if(sp%2==0)
@@ -326,14 +333,14 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
                     for(j=0; j<(sp/2)+1; j++) printf(" "); printf("|\n");
                 }
 
-                printf("   |                                  |\n");
-                printf("   |                                  |\n");
-                printf("    ----------------------------------\n");
+                printf("\t\t\t\t   |                                                 |\n");
+                printf("\t\t\t\t   |                                                 |\n");
+                printf("\t\t\t\t    -------------------------------------------------\n");
 
                 printf("\n");
-                printf("    1: Pass\n");
-                printf("    2: Still Learning\n");
-                printf("    3: Back to Menu\n");
+                printf("\t\t\t\t    [1] Pass\n");
+                printf("\t\t\t\t    [2] Still Learning\n");
+                printf("\t\t\t\t    [X] Back to Menu\n");
                 printf("\n");
 
                 do
@@ -341,8 +348,8 @@ void repeat(char w[][100],char def[][100],int rep,char *name)
                     fflush(stdin);
                     cn = _getch();
                             //printf("%c",cn);
-
-                }while(cn!='1' && cn!='2' && cn!='3');
+                    cn = tolower(cn);
+                }while(cn!='1' && cn!='2' && cn!='x');
 
                 switch(cn)
                 {
