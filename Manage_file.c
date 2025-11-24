@@ -22,7 +22,7 @@ void trimNewline(char *str)
 {
     str[strcspn(str,"\n")] = 0;
 }
-
+/*
 char GetLine(int line,char *name ,char *buffer)
 {
     int current_line = 1;
@@ -212,7 +212,7 @@ int AddCard(char *title)
     fclose(fp);
     return 1;
 }
-
+*/
 void DelCard(char *word,char *file)
 {
     char str[100];
@@ -269,7 +269,7 @@ int CardList(char *title)
 
     fclose(fp);
 }
-
+/*
 int SetList()
 {
     char str[200];
@@ -490,10 +490,117 @@ void RunSetMenu()
         }
     }while (choice != 'x');
 }
+*/
+int GetLine(char *name ,char *buffer)
+{
+    int current_line = 1;
+    int lineNum;
+    char str[200];
+    char file_name[100];
+
+    while(1)
+    {
+        if(scanf("%d",&lineNum)!=1)
+        {
+            clearBuffer();
+            printf("\t\t\t[!] Invalid input! Please try again.\n");
+            Sleep(1000);
+            continue;
+        }
+        clearBuffer();
+        if(lineNum == 0)
+        {
+            printf("\t\t\t> Canceled <");
+            Sleep(1000);
+            return 0;
+        }
+        else break;
+    }
+
+    sprintf(file_name,"%s.txt",name);
+
+    FILE *fp = fopen(file_name,"r");
+    if(fp == NULL)
+    {
+        printf("\t\t\t< File is empty >");
+    }
+
+    while(fgets(str,sizeof(str),fp) != NULL)
+    {
+        if(current_line == lineNum)
+        {
+            trimNewline(str);
+            strcpy(buffer,str);
+
+            fclose(fp);
+            return 1;
+        }
+        current_line++;
+    }
+
+    fclose(fp);
+
+    printf("\t\t\t[!] Card number %d not found\n",lineNum);
+    Sleep(1200);
+}
+
+void CardMenu(char *title)
+{
+    char choice,confirm;
+    char card[200];
+    int lineNum;
+
+    do
+    {
+        system("cls");
+        printf("\t\t\t========================= %s =========================\n\n",title);
+        CardList(title);
+        printf("\n");
+        printf("\n\t\t\t[A]Add  [D]Delete  [X]Back ");
+        printf("\n\t\t\tSelect an option: ");
+        choice = _getch();
+        printf("%c\n",choice);
+        choice = tolower(choice);
+
+        switch(choice)
+        {
+            case 'a':
+                //AddCard(title);
+                system("cls");
+                break;
+
+            case 'd':
+                 printf("\t\t\tEnter line number to delete(0 to cancel): ");
+                 if(GetLine(title,card) == 1)
+                {
+                    printf("\t\t\tAre you sure you want to delete? (y/n): ");
+                    confirm = _getch();
+                    printf("%c\n",confirm);
+                    if(confirm == 'y')
+                    {
+                        DelCard(card,title);
+                    }
+                    else
+                    {
+                        printf("\t\t\t> Canceled <");
+                        fflush(stdout);
+                        Sleep(1000);
+                    }
+                }
+                break;
+
+            case 'x': return;
+
+            default:
+                printf("\t\t\t[!] Invalid input. Please try again.\n");
+                Sleep(1000);
+        }
+    }while (choice != 'x');
+}
 
 int main()
 {
-    RunSetMenu();
+    CardMenu("Vocab");
     return 0;
 }
 
