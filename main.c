@@ -377,6 +377,7 @@ int main()
                             Sleep(1000);
                         }
                     }
+                    else break;
                 }
                 break;
 
@@ -393,7 +394,7 @@ int main()
                             continue;
                         else break;
                     }
-                    else printf("error");
+                    else break;
 
                 }
                 break;
@@ -460,14 +461,14 @@ int GetLine(char *name ,char *buffer)
             clearBuffer();
             printf("\t\t\t[!] Invalid input! Please try again.\n");
             Sleep(1000);
-            continue;
+            return 0;
         }
         clearBuffer();
         if(lineNum == 0)
         {
             printf("\t\t\t> Canceled <");
             Sleep(1000);
-            return 0;
+            return 2;
         }
         else break;
     }
@@ -1896,4 +1897,3 @@ void StartGame(char *setName)
     ShuffleDeck(deck,totalCards);
     PlayRPG(deck,totalCards);
 }
-
